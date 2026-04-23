@@ -21,16 +21,19 @@
 
     /* NAVBAR */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: rgba(253,248,245,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #f0e0d6; }
-    .nav-logo { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.05em; color: #b5565a; text-decoration: none; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.05em; color: #b5565a; text-decoration: none; display: flex; align-items: center; }
+    .nav-logo img { height: 44px; width: auto; }
     .nav-links a { text-decoration: none; color: #3d2c2c; margin-left: 32px; font-size: 0.95rem; transition: color 0.2s; }
     .nav-links a:hover { color: #b5565a; }
 
     /* HERO */
     .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 24px; background: linear-gradient(160deg, rgba(255,240,243,0.85) 0%, rgba(253,248,245,0.88) 50%, rgba(245,239,232,0.85) 100%); overflow: hidden; }
+    .hero-logo-img { width: 110px; height: auto; margin-bottom: 18px; opacity: 0.92; }
     .hero-badge { display: inline-block; background: rgba(181,86,90,0.1); color: #b5565a; border: 1px solid rgba(181,86,90,0.25); border-radius: 999px; padding: 6px 20px; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 28px; }
     .hero h1 { font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; color: #2a1a1a; }
     .hero h1 span { color: #b5565a; }
-    .hero-sub { margin-top: 20px; font-size: clamp(1rem, 2vw, 1.25rem); color: #7a5a5a; max-width: 520px; line-height: 1.6; }
+    .hero-slogan { margin-top: 20px; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; color: #b5565a; font-style: italic; letter-spacing: -0.01em; }
+    .hero-sub { margin-top: 10px; font-size: clamp(1rem, 2vw, 1.25rem); color: #7a5a5a; max-width: 520px; line-height: 1.6; }
     .hero-cta { margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     .btn-primary { background: #b5565a; color: #fff; border: none; padding: 14px 32px; border-radius: 999px; font-size: 1rem; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; font-family: inherit; }
     .btn-primary:hover { background: #9e3f43; transform: translateY(-2px); }
@@ -101,6 +104,7 @@
       .modal { flex-direction: column; }
       .modal-img { width: 100%; min-height: 260px; border-radius: 24px 24px 0 0; }
       .modal-info { padding: 24px 20px; }
+      .hero-logo-img { width: 80px; }
     }
   </style>
 </head>
@@ -111,7 +115,9 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#inicio" class="nav-logo">🌿 EverGarden</a>
+  <a href="#inicio" class="nav-logo">
+    <img src="images/Logo_EverGarden.png" alt="EverGarden" />
+  </a>
   <div class="nav-links">
     <a href="#quienes">Quiénes Somos</a>
     <a href="#catalogo">Catálogo</a>
@@ -121,9 +127,11 @@
 
 <!-- HERO -->
 <section class="hero" id="inicio">
+  <img src="images/Logo_EverGarden.png" alt="EverGarden" class="hero-logo-img" />
   <div class="hero-badge">✦ Arreglos florales artificiales ✦</div>
   <h1>Ever<br /><span>Garden</span></h1>
-  <p class="hero-sub">Belleza que no se marchita. Arreglos elegantes para decorar tu hogar o regalar con amor.</p>
+  <p class="hero-slogan">Belleza que no se marchita.</p>
+  <p class="hero-sub">Arreglos elegantes para decorar tu hogar o regalar con amor.</p>
   <div class="hero-cta">
     <a href="#catalogo" class="btn-primary">Ver catálogo →</a>
     <a href="#quienes" class="btn-secondary">Quiénes somos</a>
@@ -202,9 +210,9 @@
   // ============================================================
   // CONFIGURACIÓN
   // ============================================================
-const SUPABASE_URL = 'https://wigmeqkkjqmzqityuhlt.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpZ21lcWtranFtenFpdHl1aGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NzE3NTMsImV4cCI6MjA5MjU0Nzc1M30.AdyWFTwqZi2menklNVHbERWymHmxW6aHRTljJvQr3FM';
-const WA_NUMBER   = "5218119240047";
+  const SUPABASE_URL = 'https://wigmeqkkjqmzqityuhlt.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpZ21lcWtranFtenFpdHl1aGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NzE3NTMsImV4cCI6MjA5MjU0Nzc1M30.AdyWFTwqZi2menklNVHbERWymHmxW6aHRTljJvQr3FM';
+  const WA_NUMBER   = "5218119240047";
 
   // ---- Fondo animado de flores ----
   const emojis = ["🌸","🌺","🌼","🌷","✿","❀","🪷","💐","🌹"];
@@ -222,33 +230,33 @@ const WA_NUMBER   = "5218119240047";
   }
 
   // ---- Helpers ----
-function buildWaLink(name, price, imgUrl) {
-  var priceStr = price ? " (Precio: $" + price + " MXN)" : "";
-  var imgPart  = imgUrl ? "%0A🔗 Ver arreglo: " + encodeURIComponent(imgUrl) : "";
-  var msg = encodeURIComponent('Hola, estoy interesad@ en el "' + name + '"' + priceStr + ". ¿Me puedes dar informes? 🌿") + imgPart;
-  return "https://wa.me/" + WA_NUMBER + "?text=" + msg;
-}
+  function buildWaLink(name, price, imgUrl) {
+    var priceStr = price ? " (Precio: $" + price + " MXN)" : "";
+    var imgPart  = imgUrl ? "%0A🔗 Ver arreglo: " + encodeURIComponent(imgUrl) : "";
+    var msg = encodeURIComponent('Hola, estoy interesad@ en el "' + name + '"' + priceStr + ". ¿Me puedes dar informes? 🌿") + imgPart;
+    return "https://wa.me/" + WA_NUMBER + "?text=" + msg;
+  }
 
   // ---- Cargar productos desde Supabase ----
-async function cargarProductos() {
-  try {
-    const url = SUPABASE_URL + "/rest/v1/productos?disponible=eq.true&order=created_at.desc";
-    const res = await fetch(url, {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Content-Type": "application/json"
-      }
-    });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
-    renderCards(data);
-  } catch(e) {
-    console.error("Supabase error:", e);
-    document.getElementById("catalogGrid").innerHTML =
-      '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar productos. Intenta más tarde. 🌿</div>';
+  async function cargarProductos() {
+    try {
+      const url = SUPABASE_URL + "/rest/v1/productos?disponible=eq.true&order=created_at.desc";
+      const res = await fetch(url, {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY,
+          "Content-Type": "application/json"
+        }
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      renderCards(data);
+    } catch(e) {
+      console.error("Supabase error:", e);
+      document.getElementById("catalogGrid").innerHTML =
+        '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar productos. Intenta más tarde. 🌿</div>';
+    }
   }
-}
 
   // ---- Render cards ----
   function renderCards(arrangements) {
@@ -314,4 +322,3 @@ async function cargarProductos() {
 </script>
 </body>
 </html>
-
