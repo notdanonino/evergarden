@@ -316,11 +316,5 @@ async function cargarProductos() {
   cargarProductos();
 </script>
 </body>
-</html>"""
+</html>
 
-import os
-os.makedirs('/root/output', exist_ok=True)
-with open('/root/output/index.html', 'w', encoding='utf-8') as f:
-    f.write(index_html)
-
-print("index.html generado:", len(index_html), "caracteres")
