@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — EverGarden</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
+    header { background: linear-gradient(135deg, #2d1b3d, #1a1a2e); padding: 20px 30px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #3d2a4e; }
+    header h1 { font-size: 1.5rem; color: #e8b4d8; }
+    header span { font-size: 0.85rem; color: #9a7aaa; }
+    .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    .card { background: #2a1f3d; border-radius: 16px; padding: 28px; margin-bottom: 30px; border: 1px solid #3d2a4e; }
+    .card h2 { color: #e8b4d8; margin-bottom: 20px; font-size: 1.1rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid .full { grid-column: 1 / -1; }
+    label { display: block; font-size: 0.8rem; color: #9a7aaa; margin-bottom: 5px; }
+    input, textarea, select { width: 100%; padding: 10px 14px; background: #1a1a2e; border: 1px solid #3d2a4e; border-radius: 8px; color: #eee; font-size: 0.95rem; outline: none; transition: border 0.2s; }
+    input:focus, textarea:focus, select:focus { border-color: #c084d8; }
+    textarea { resize: vertical; min-height: 80px; }
+    .btn { padding: 11px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
+    .btn-primary { background: linear-gradient(135deg, #c084d8, #9b59b6); color: #fff; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-danger { background: #c0392b; color: #fff; padding: 7px 14px; font-size: 0.8rem; border-radius: 6px; border: none; cursor: pointer; }
+    .btn-danger:hover { background: #a93226; }
+    .btn-edit { background: #2980b9; color: #fff; padding: 7px 14px; font-size: 0.8rem; border-radius: 6px; border: none; cursor: pointer; margin-right: 6px; }
+    .btn-edit:hover { background: #2471a3; }
+    .msg { padding: 10px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; display: none; }
+    .msg.success { background: #1e4d2b; color: #6fcf97; display: block; }
+    .msg.error { background: #4d1e1e; color: #e57373; display: block; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { text-align: left; padding: 10px 12px; color: #9a7aaa; border-bottom: 1px solid #3d2a4e; font-weight: 600; }
+    td { padding: 10px 12px; border-bottom: 1px solid #2d2040; vertical-align: middle; }
+    td img { width: 52px; height: 52px; object-fit: cover; border-radius: 8px; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; }
+    .badge.on { background: #1e4d2b; color: #6fcf97; }
+    .badge.off { background: #4d1e1e; color: #e57373; }
+    .precio { color: #c084d8; font-weight: 700; }
+    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-box { background: #2a1f3d; border-radius: 16px; padding: 40px; width: 360px; border: 1px solid #3d2a4e; text-align: center; }
+    .login-box h2 { color: #e8b4d8; margin-bottom: 6px; font-size: 1.4rem; }
+    .login-box p { color: #9a7aaa; font-size: 0.85rem; margin-bottom: 24px; }
+    .login-box .field { margin-bottom: 14px; text-align: left; }
+    .main-app { display: none; }
+    .user-badge { background: #3d2a4e; color: #e8b4d8; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; margin-left: auto; margin-right: 12px; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h2>🌸 EverGarden</h2>
+    <p>Panel de administración</p>
+    <div class="field"><label>Correo electrónico</label><input type="email" id="login-email" placeholder="tu@correo.com" /></div>
+    <div class="field"><label>Contraseña</label><input type="password" id="login-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')iniciarSesion()" /></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:6px" onclick="iniciarSesion()">Entrar</button>
+    <div id="login-error" class="msg error" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="main-app" id="main-app">
+  <header>
+    <div>
+      <h1>🌸 EverGarden — Panel Admin</h1>
+      <span>Gestiona tu catálogo de arreglos</span>
+    </div>
+    <span class="user-badge" id="user-email"></span>
+    <button class="btn" style="background:#3d2a4e;color:#e8b4d8" onclick="cerrarSesion()">Salir</button>
+  </header>
+
+  <div class="container">
+    <div id="form-msg" class="msg"></div>
+    <div class="card">
+      <h2 id="form-title">➕ Agregar nuevo arreglo</h2>
+      <input type="hidden" id="edit-id" />
+      <div class="form-grid">
+        <div><label>Nombre del arreglo *</label><input type="text" id="f-nombre" placeholder="Ej: Arreglo Primavera Rosa" /></div>
+        <div><label>Precio (MXN) *</label><input type="number" id="f-precio" placeholder="450" min="0" /></div>
+        <div class="full"><label>Descripción</label><textarea id="f-descripcion" placeholder="Descripción del arreglo, materiales, tamaño..."></textarea></div>
+        <div class="full"><label>URL de imagen *</label><input type="text" id="f-imagen" placeholder="https://evergarden-seven.vercel.app/images/..." /></div>
+        <div>
+          <label>Disponible</label>
+          <select id="f-disponible">
+            <option value="true">✅ Sí</option>
+            <option value="false">❌ No</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:10px">
+          <button class="btn btn-primary" onclick="guardarProducto()">Guardar arreglo</button>
+          <button class="btn" style="background:#3d2a4e;color:#e8b4d8" onclick="cancelarEdicion()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📦 Arreglos en catálogo (<span id="total-count">0</span>)</h2>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Imagen</th><th>Nombre</th><th>Precio</th><th>Disponible</th><th>Acciones</th></tr></thead>
+          <tbody id="tabla-productos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const { createClient } = supabase;
+  const sb = createClient(
+    'https://wigmeqkkjqmzqityuhlt.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpZ21lcWtranFtenFpdHl1aGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NzE3NTMsImV4cCI6MjA5MjU0Nzc1M30.AdyWFTwqZi2menklNVHbERWymHmxW6aHRTljJvQr3FM'
+  );
+
+  // Verificar sesión activa al cargar
+  sb.auth.getSession().then(function(result) {
+    var session = result.data.session;
+    if (session) mostrarApp(session.user.email);
+  });
+
+  async function iniciarSesion() {
+    const email = document.getElementById('login-email').value.trim();
+    const pwd   = document.getElementById('login-pwd').value;
+    const errEl = document.getElementById('login-error');
+    errEl.className = 'msg';
+    const { data, error } = await sb.auth.signInWithPassword({ email: email, password: pwd });
+    if (error) {
+      errEl.textContent = 'Credenciales incorrectas. Intenta de nuevo.';
+      errEl.className = 'msg error';
+    } else {
+      mostrarApp(data.user.email);
+    }
+  }
+
+  function mostrarApp(email) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    document.getElementById('user-email').textContent = email;
+    cargarProductos();
+  }
+
+  async function cerrarSesion() {
+    await sb.auth.signOut();
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('main-app').style.display = 'none';
+    document.getElementById('login-email').value = '';
+    document.getElementById('login-pwd').value = '';
+  }
+
+  async function cargarProductos() {
+    const { data, error } = await sb.from('productos').select('*').order('created_at', { ascending: false });
+    if (error) { mostrarMsg('Error al cargar productos', 'error'); return; }
+    const tbody = document.getElementById('tabla-productos');
+    document.getElementById('total-count').textContent = data.length;
+    tbody.innerHTML = '';
+    data.forEach(function(p) {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><img src="' + (p.imagen_url || 'https://via.placeholder.com/52') + '" onerror="this.src=\'https://placehold.co/52\'" /></td>' +
+        '<td><strong>' + p.nombre + '</strong><br/><small style="color:#9a7aaa">' + (p.descripcion||'').substring(0,50) + '...</small></td>' +
+        '<td class="precio">$' + Number(p.precio).toLocaleString('es-MX') + '</td>' +
+        '<td><span class="badge ' + (p.disponible ? 'on' : 'off') + '">' + (p.disponible ? 'Disponible' : 'Agotado') + '</span></td>' +
+        '<td><button class="btn-edit">✏️ Editar</button><button class="btn-danger">🗑️ Eliminar</button></td>';
+      tr.querySelector('.btn-edit').addEventListener('click', function() { editarProducto(p); });
+      tr.querySelector('.btn-danger').addEventListener('click', function() { eliminarProducto(p.id, p.nombre); });
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function guardarProducto() {
+    const id          = document.getElementById('edit-id').value;
+    const nombre      = document.getElementById('f-nombre').value.trim();
+    const precio      = parseFloat(document.getElementById('f-precio').value);
+    const descripcion = document.getElementById('f-descripcion').value.trim();
+    const imagen_url  = document.getElementById('f-imagen').value.trim();
+    const disponible  = document.getElementById('f-disponible').value === 'true';
+    if (!nombre || !precio || !imagen_url) { mostrarMsg('Nombre, precio e imagen son obligatorios', 'error'); return; }
+    const body = { nombre: nombre, precio: precio, descripcion: descripcion, imagen_url: imagen_url, disponible: disponible };
+    let error;
+    if (id) {
+      const res = await sb.from('productos').update(body).eq('id', id);
+      error = res.error;
+    } else {
+      const res = await sb.from('productos').insert(body);
+      error = res.error;
+    }
+    if (error) { mostrarMsg('❌ Error: ' + error.message, 'error'); return; }
+    mostrarMsg(id ? '✅ Arreglo actualizado' : '✅ Arreglo agregado', 'success');
+    cancelarEdicion();
+    cargarProductos();
+  }
+
+  function editarProducto(p) {
+    document.getElementById('edit-id').value = p.id;
+    document.getElementById('f-nombre').value = p.nombre;
+    document.getElementById('f-precio').value = p.precio;
+    document.getElementById('f-descripcion').value = p.descripcion || '';
+    document.getElementById('f-imagen').value = p.imagen_url || '';
+    document.getElementById('f-disponible').value = String(p.disponible);
+    document.getElementById('form-title').textContent = '✏️ Editando arreglo';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function cancelarEdicion() {
+    document.getElementById('edit-id').value = '';
+    document.getElementById('f-nombre').value = '';
+    document.getElementById('f-precio').value = '';
+    document.getElementById('f-descripcion').value = '';
+    document.getElementById('f-imagen').value = '';
+    document.getElementById('f-disponible').value = 'true';
+    document.getElementById('form-title').textContent = '➕ Agregar nuevo arreglo';
+  }
+
+  async function eliminarProducto(id, nombre) {
+    if (!confirm('¿Eliminar "' + nombre + '"? Esta acción no se puede deshacer.')) return;
+    const { error } = await sb.from('productos').delete().eq('id', id);
+    if (error) { mostrarMsg('❌ Error al eliminar', 'error'); return; }
+    mostrarMsg('🗑️ Arreglo eliminado', 'success');
+    cargarProductos();
+  }
+
+  function mostrarMsg(texto, tipo) {
+    const el = document.getElementById('form-msg');
+    el.textContent = texto;
+    el.className = 'msg ' + tipo;
+    setTimeout(function() { el.className = 'msg'; }, 3500);
+  }
+</script>
+</body>
+</html>
