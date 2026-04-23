@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+SUPABASE_URL = "https://wigmeqkkjqmzqityuhlt.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpZ21lcWtranFtenFpdHl1aGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NzE3NTMsImV4cCI6MjA5MjU0Nzc1M30.AdyWFTwqZi2menklNVHbERWymHmxW6aHRTljJvQr3FM"
+
+index_html = """<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -68,6 +71,7 @@
     .btn-wa { display: flex; align-items: center; gap: 8px; background: #25D366; color: #fff; border: none; padding: 10px 18px; border-radius: 999px; font-size: 0.88rem; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; width: 100%; justify-content: center; font-family: inherit; }
     .btn-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
     .btn-wa svg { flex-shrink: 0; }
+    .catalog-loading { text-align: center; padding: 60px; color: #b5565a; font-style: italic; font-size: 1.1rem; }
 
     /* MODAL */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(30,10,10,0.55); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
@@ -166,7 +170,9 @@
   <p class="section-label">✦ Disponibles ahora ✦</p>
   <h2 class="section-title">Catálogo actual</h2>
   <p class="section-desc">Toca cualquier arreglo para ver los detalles y pedirlo por WhatsApp.</p>
-  <div class="catalog-grid" id="catalogGrid"></div>
+  <div class="catalog-grid" id="catalogGrid">
+    <div class="catalog-loading" style="grid-column:1/-1">Cargando arreglos... 🌸</div>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -197,24 +203,11 @@
 
 <script>
   // ============================================================
-  // CONFIGURACIÓN — Edita aquí nombre, precio y descripción
+  // CONFIGURACIÓN
   // ============================================================
-  const WA_NUMBER = "5218119240047";
-
-  const arrangements = [
-    { id: 1, img: "images/IMG_7185.jpg", name: "Jardín Eterno", price: "850", desc: "Arreglo Floral con base estilo ceramica, principalmente blanco y verde" },
-    { id: 2, img: "images/IMG_7187.jpg", name: "Susurros de Rosas", price: "1250", desc: "Arreglo Floral principalmente amarillo con base de cristal y resina Epoxy" },
-    { id: 3, img: "images/IMG_7189.jpg", name: "Esencia Floral", price: "1000", desc: "Arreglo Floral principalmente blanco con rosa, con base de cristal y resina Epoxy" },
-    { id: 4, img: "images/IMG_7190.jpg", name: "Aura de Primavera", price: "960", desc: "Arreglo floral voluminoso principalmente morado con amarillo, con base metalica" },
-    { id: 5, img: "images/IMG_7191.jpg", name: "Encanto Botánico", price: "750", desc: "Arreglo floral corto con base de cristal y resina Epoxy en la base" },
-    { id: 6, img: "images/IMG_7193.jpg", name: "Bouquet Imperial", price: "390", desc: "Arreglo floral pequeño con base de ceramica blanca." },
-    { id: 8, img: "images/IMG_7195.jpg", name: "Flor de Seda", price: "1500", desc: "Arreglo floral con base de vidrio y limones, perfecto para primavera!" },
-    { id: 9, img: "images/IMG_7196.jpg", name: "Delicadeza Natural", price: "1090", desc: "Arreglo de Tulipanes rosados con base de cristal y resina Epoxy en la base" },
-    { id: 11, img: "images/IMG_7198.jpg", name: "Suspiros del Jardín", price: "160", desc: "Arreglo pequeño con base de cristal principalmente azul, perfecto para espacios pequeños!" },
-    { id: 12, img: "images/IMG_7199.jpg", name: "Flor de Cristal", price: "220", desc: "Arreglo pequeño con base de cristal tono café, con tulipanes blancos con un tono rosa perfecto para amenizar espacios pequeños." },
-    { id: 13, img: "images/IMG_7200.jpg", name: "Reflejo Floral", price: "1350", desc: "Arreglo floral con base de cerámica, con tonos rosas y blancos, alto y perfecto para la entrada de tu hogar!" }
-  ];
-  // ============================================================
+  const SUPABASE_URL = '""" + SUPABASE_URL + """';
+  const SUPABASE_KEY = '""" + SUPABASE_KEY + """';
+  const WA_NUMBER   = "5218119240047";
 
   // ---- Fondo animado de flores ----
   const emojis = ["🌸","🌺","🌼","🌷","✿","❀","🪷","💐","🌹"];
@@ -232,31 +225,48 @@
   }
 
   // ---- Helpers ----
-  function isPlaceholder(val) {
-    return !val || val === "PRECIO AQUÍ" || val === "BREVE DESCRIPCIÓN DEL ARREGLO";
+  function buildWaLink(name, price, imgUrl) {
+    var priceStr = price ? " (Precio: $" + price + " MXN)" : "";
+    var imgPart  = imgUrl ? "\\n🔗 Ver arreglo: " + imgUrl : "";
+    var msg = encodeURIComponent("Hola, estoy interesad@ en el \\"" + name + "\\"" + priceStr + imgPart + ". ¿Me puedes dar informes? 🌿");
+    return "https://wa.me/" + WA_NUMBER + "?text=" + msg;
   }
 
-function buildWaLink(name, price, img) {
-    var priceStr = isPlaceholder(price) ? "" : " (Precio: $" + price + " MXN)";
-    var imgUrl = img ? "\n🔗 Ver arreglo: https://evergarden-seven.vercel.app/" + img : "";
-    var msg = encodeURIComponent("Hola, estoy interesad@ en el \"" + name + "\"" + priceStr + imgUrl + ". ¿Me puedes dar informes? 🌿");
-    return "https://wa.me/" + WA_NUMBER + "?text=" + msg;
-}
+  // ---- Cargar productos desde Supabase ----
+  async function cargarProductos() {
+    try {
+      const res = await fetch(SUPABASE_URL + "/rest/v1/productos?disponible=eq.true&order=created_at.desc", {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY
+        }
+      });
+      const data = await res.json();
+      renderCards(data);
+    } catch(e) {
+      document.getElementById("catalogGrid").innerHTML =
+        '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar productos. Intenta más tarde. 🌿</div>';
+    }
+  }
 
   // ---- Render cards ----
-  function renderCards() {
+  function renderCards(arrangements) {
     var grid = document.getElementById("catalogGrid");
+    if (!arrangements || arrangements.length === 0) {
+      grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1">No hay arreglos disponibles por el momento. 🌿</div>';
+      return;
+    }
     grid.innerHTML = arrangements.map(function(a) {
-      var priceShow = isPlaceholder(a.price) ? "" : "$" + a.price + " MXN";
+      var priceShow = a.precio ? "$" + Number(a.precio).toLocaleString("es-MX") + " MXN" : "";
       return [
         '<div class="flower-card" data-id="' + a.id + '">',
           '<div class="card-img-wrap">',
-            '<img src="' + a.img + '" alt="' + a.name + '" loading="lazy" />',
+            '<img src="' + (a.imagen_url || "") + '" alt="' + a.nombre + '" loading="lazy" onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\'" />',
           '</div>',
           '<div class="card-body">',
-            '<div class="card-name-display">' + a.name + '</div>',
+            '<div class="card-name-display">' + a.nombre + '</div>',
             '<div class="card-price-display">' + priceShow + '</div>',
-            '<a class="btn-wa" href="' + buildWaLink(a.name, a.price, a.img) + '" target="_blank" data-wa="true">',
+            '<a class="btn-wa" href="' + buildWaLink(a.nombre, a.precio ? Number(a.precio).toLocaleString("es-MX") : "", a.imagen_url) + '" target="_blank" data-wa="true">',
               '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.099 1.508 5.83L.057 23.625a.75.75 0 0 0 .921.921l5.866-1.447A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.893 0-3.665-.51-5.19-1.397l-.371-.22-3.83.944.964-3.742-.242-.387A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>',
               'Pedir por WhatsApp',
             '</a>',
@@ -265,25 +275,24 @@ function buildWaLink(name, price, img) {
       ].join("");
     }).join("");
 
-    // click en tarjeta — abre modal (ignora clicks en btn-wa)
     document.querySelectorAll(".flower-card").forEach(function(card) {
       card.addEventListener("click", function(e) {
         if (e.target.closest("[data-wa]")) return;
-        openModal(parseInt(card.dataset.id));
+        var id = card.dataset.id;
+        var a = arrangements.find(function(x) { return String(x.id) === id; });
+        if (a) openModal(a);
       });
     });
   }
 
   // ---- Modal ----
-  function openModal(id) {
-    var a = arrangements.find(function(x) { return x.id === id; });
-    if (!a) return;
-    document.getElementById("modalImg").src   = a.img;
-    document.getElementById("modalImg").alt   = a.name;
-    document.getElementById("modalName").textContent  = a.name;
-    document.getElementById("modalPrice").textContent = isPlaceholder(a.price) ? "Precio a consultar" : "$" + a.price + " MXN";
-    document.getElementById("modalDesc").textContent  = isPlaceholder(a.desc)  ? "" : a.desc;
-    document.getElementById("modalWaBtn").href = buildWaLink(a.name, a.price, a.img);
+  function openModal(a) {
+    document.getElementById("modalImg").src   = a.imagen_url || "";
+    document.getElementById("modalImg").alt   = a.nombre;
+    document.getElementById("modalName").textContent  = a.nombre;
+    document.getElementById("modalPrice").textContent = a.precio ? "$" + Number(a.precio).toLocaleString("es-MX") + " MXN" : "Precio a consultar";
+    document.getElementById("modalDesc").textContent  = a.descripcion || "";
+    document.getElementById("modalWaBtn").href = buildWaLink(a.nombre, a.precio ? Number(a.precio).toLocaleString("es-MX") : "", a.imagen_url);
     document.getElementById("modalOverlay").classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -299,7 +308,15 @@ function buildWaLink(name, price, img) {
   });
   document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeModal(); });
 
-  renderCards();
+  // ---- Iniciar ----
+  cargarProductos();
 </script>
 </body>
-</html>
+</html>"""
+
+import os
+os.makedirs('/root/output', exist_ok=True)
+with open('/root/output/index.html', 'w', encoding='utf-8') as f:
+    f.write(index_html)
+
+print("index.html generado:", len(index_html), "caracteres")
