@@ -225,12 +225,12 @@ index_html = """<!DOCTYPE html>
   }
 
   // ---- Helpers ----
-  function buildWaLink(name, price, imgUrl) {
-    var priceStr = price ? " (Precio: $" + price + " MXN)" : "";
-    var imgPart  = imgUrl ? "\\n🔗 Ver arreglo: " + imgUrl : "";
-    var msg = encodeURIComponent("Hola, estoy interesad@ en el \\"" + name + "\\"" + priceStr + imgPart + ". ¿Me puedes dar informes? 🌿");
-    return "https://wa.me/" + WA_NUMBER + "?text=" + msg;
-  }
+function buildWaLink(name, price, imgUrl) {
+  var priceStr = price ? " (Precio: $" + price + " MXN)" : "";
+  var imgPart  = imgUrl ? "%0A🔗 Ver arreglo: " + encodeURIComponent(imgUrl) : "";
+  var msg = encodeURIComponent('Hola, estoy interesad@ en el "' + name + '"' + priceStr + ". ¿Me puedes dar informes? 🌿") + imgPart;
+  return "https://wa.me/" + WA_NUMBER + "?text=" + msg;
+}
 
   // ---- Cargar productos desde Supabase ----
   async function cargarProductos() {
