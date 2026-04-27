@@ -7,7 +7,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const url = SUPABASE_URL + '/rest/v1/productos?disponible=eq.true&vendido=neq.true&order=created_at.desc';
+    const url = SUPABASE_URL + '/rest/v1/productos?vendido=eq.true&order=created_at.desc';
     const response = await fetch(url, {
       headers: {
         'apikey':        SUPABASE_KEY,
