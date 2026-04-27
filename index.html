@@ -9,18 +9,25 @@
     html { scroll-behavior: smooth; }
     body { font-family: "Georgia", serif; background-color: #fdf8f5; color: #3d2c2c; overflow-x: hidden; }
 
-    /* FONDO ANIMADO CON FLORES */
+    /* FONDO ANIMADO CON FLORES — optimizado */
     #flower-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .petal { position: absolute; font-size: 1.2rem; opacity: 0; animation: floatPetal linear infinite; user-select: none; }
+    .petal {
+      position: absolute; font-size: 1.2rem; opacity: 0;
+      animation: floatPetal linear infinite;
+      user-select: none;
+      will-change: transform, opacity;
+      contain: layout style;
+    }
     @keyframes floatPetal {
       0%   { opacity: 0;    transform: translateY(-20px) rotate(0deg) scale(0.8); }
       10%  { opacity: 0.35; }
       90%  { opacity: 0.25; }
       100% { opacity: 0;    transform: translateY(100vh) rotate(360deg) scale(1.1); }
     }
+    @media (prefers-reduced-motion: reduce) { .petal { display: none; } }
 
     /* NAVBAR */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: rgba(253,248,245,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #f0e0d6; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: rgba(253,248,245,0.96); border-bottom: 1px solid #f0e0d6; }
     .nav-logo { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.05em; color: #b5565a; text-decoration: none; display: flex; align-items: center; }
     .nav-logo img { height: 44px; width: auto; }
     .nav-links a { text-decoration: none; color: #3d2c2c; margin-left: 32px; font-size: 0.95rem; transition: color 0.2s; }
@@ -58,10 +65,29 @@
     .section-title { text-align: center; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; color: #2a1a1a; margin-bottom: 12px; }
     .section-desc { text-align: center; color: #7a5a5a; max-width: 480px; margin: 0 auto 56px; line-height: 1.7; font-size: 1rem; }
 
-    /* GRID */
+    /* GRID — hover con ::after para evitar repaint */
     .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
-    .flower-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 12px rgba(61,44,44,0.07); transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
-    .flower-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(61,44,44,0.13); }
+    .flower-card {
+      background: #fff; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(61,44,44,0.07);
+      transition: transform 0.25s;
+      cursor: pointer;
+      will-change: transform;
+      position: relative;
+    }
+    .flower-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(61,44,44,0.13);
+      opacity: 0;
+      transition: opacity 0.25s;
+      pointer-events: none;
+    }
+    .flower-card:hover { transform: translateY(-6px); }
+    .flower-card:hover::after { opacity: 1; }
+
     .card-img-wrap { position: relative; width: 100%; padding-top: 110%; overflow: hidden; background: #f9f0ec; }
     .card-img-wrap img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .flower-card:hover .card-img-wrap img { transform: scale(1.05); }
@@ -207,25 +233,27 @@
 </div>
 
 <script>
-  // ============================================================
-  // CONFIGURACIÓN
-  // ============================================================
-   const WA_NUMBER   = "5218134000720";
+  const WA_NUMBER = "5218134000720";
 
-  // ---- Fondo animado de flores ----
-  const emojis = ["🌸","🌺","🌼","🌷","✿","❀","🪷","💐","🌹"];
-  const bg = document.getElementById("flower-bg");
-  for (let i = 0; i < 28; i++) {
-    const p = document.createElement("span");
-    p.className = "petal";
-    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    const size  = 0.9  + Math.random() * 1.4;
-    const left  = Math.random() * 100;
-    const delay = Math.random() * 18;
-    const dur   = 12   + Math.random() * 16;
-    p.style.cssText = "left:" + left + "vw; font-size:" + size + "rem; animation-delay:" + delay + "s; animation-duration:" + dur + "s;";
-    bg.appendChild(p);
-  }
+  // ---- Fondo animado — 14 pétalos solo en desktop ----
+  (function() {
+    if (window.innerWidth < 768) return;
+    var emojis = ["🌸","🌺","🌼","🌷","✿","❀","🪷","💐","🌹"];
+    var bg = document.getElementById("flower-bg");
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < 14; i++) {
+      var p = document.createElement("span");
+      p.className = "petal";
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      var size  = 0.9  + Math.random() * 1.4;
+      var left  = Math.random() * 100;
+      var delay = Math.random() * 18;
+      var dur   = 12   + Math.random() * 16;
+      p.style.cssText = "left:" + left + "vw; font-size:" + size + "rem; animation-delay:" + delay + "s; animation-duration:" + dur + "s;";
+      frag.appendChild(p);
+    }
+    bg.appendChild(frag);
+  })();
 
   // ---- Helpers ----
   function buildWaLink(name, price, imgUrl) {
@@ -235,19 +263,19 @@
     return "https://wa.me/" + WA_NUMBER + "?text=" + msg;
   }
 
-  // ---- Cargar productos desde Supabase ----
-async function cargarProductos() {
-  try {
-    const res = await fetch('/api/productos');  // ← llama al servidor, no a Supabase
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
-    renderCards(data);
-  } catch(e) {
-    console.error("Error al cargar productos:", e);
-    document.getElementById("catalogGrid").innerHTML =
-      '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar productos. Intenta más tarde. 🌿</div>';
+  // ---- Cargar productos ----
+  async function cargarProductos() {
+    try {
+      const res = await fetch('/api/productos');
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      renderCards(data);
+    } catch(e) {
+      console.error("Error al cargar productos:", e);
+      document.getElementById("catalogGrid").innerHTML =
+        '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar productos. Intenta más tarde. 🌿</div>';
+    }
   }
-}
 
   // ---- Render cards ----
   function renderCards(arrangements) {
