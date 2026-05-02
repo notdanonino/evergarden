@@ -156,6 +156,26 @@
       .galeria-intro-box { padding: 24px 18px; }
     }
   </style>
+
+  /* DISCLAIMER */
+.disclaimer-box { display: flex; align-items: flex-start; gap: 14px; background: linear-gradient(135deg, rgba(181,86,90,0.07) 0%, rgba(253,248,245,0.9) 100%); border: 1.5px solid rgba(181,86,90,0.25); border-left: 4px solid #b5565a; border-radius: 14px; padding: 18px 24px; max-width: 680px; margin: -30px auto 56px; text-align: left; }
+.disclaimer-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+.disclaimer-box p { font-size: 0.88rem; color: #5a3a3a; line-height: 1.75; }
+.disclaimer-box strong { color: #b5565a; }
+
+/* PEDIDO PERSONALIZADO */
+#personalizado { position: relative; z-index: 1; padding: 0 48px 80px; max-width: 1300px; margin: 0 auto; }
+.custom-order-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.custom-order-card { background: linear-gradient(135deg, #fff5f5 0%, #fff 50%, #fdf8f5 100%); border: 1.5px solid rgba(181,86,90,0.18); border-radius: 28px; padding: 48px 48px 40px; box-shadow: 0 4px 32px rgba(181,86,90,0.08); position: relative; overflow: hidden; }
+.custom-order-card::before { content: '🌸'; position: absolute; top: -10px; right: 20px; font-size: 5rem; opacity: 0.07; pointer-events: none; }
+.custom-order-icon { font-size: 3rem; margin-bottom: 20px; }
+.custom-order-desc { font-size: 1rem; color: #5a3a3a; line-height: 1.85; margin-bottom: 32px; }
+.custom-order-desc strong { color: #b5565a; }
+.custom-order-features { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 36px; }
+.custom-feature { display: flex; align-items: center; gap: 8px; background: rgba(181,86,90,0.07); border: 1px solid rgba(181,86,90,0.15); border-radius: 999px; padding: 8px 18px; font-size: 0.85rem; color: #5a3a3a; }
+.cf-icon { font-size: 1rem; }
+.btn-custom-order { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: #fff; border: none; padding: 16px 36px; border-radius: 999px; font-size: 1rem; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; font-family: inherit; box-shadow: 0 4px 18px rgba(37,211,102,0.3); }
+.btn-custom-order:hover { background: #1ebe5d; transform: translateY(-2px); }
 </head>
 <body>
 
@@ -182,6 +202,7 @@
   <div class="nav-links">
     <a href="#quienes">Quiénes Somos</a>
     <a href="#catalogo">Catálogo</a>
+    <a href="#personalizado">Personalizado</a>
     <a href="#galeria">Galería</a>
     <a href="#contacto">Contacto</a>
   </div>
@@ -237,14 +258,45 @@
   <p class="section-label">✦ Disponibles ahora ✦</p>
   <h2 class="section-title">Catálogo actual</h2>
   <p class="section-desc">Toca cualquier arreglo para ver los detalles y pedirlo por WhatsApp.</p>
-  <p class="section-desc">Los arreglos personalizados requieren un anticipo mínimo del 50% para garantizar su disponibilidad. En caso de no recibir el pago correspondiente dentro de las siguientes 24 horas, la disponibilidad del arreglo no podrá ser asegurada.</p>
-  <div class="catalog-grid" id="catalogGrid">
+<div class="disclaimer-box">
+  <span class="disclaimer-icon">⚠️</span>
+  <p>Los arreglos personalizados requieren un <strong>anticipo mínimo del 50%</strong> para garantizar su disponibilidad. En caso de no recibir el pago correspondiente dentro de las siguientes <strong>24 horas</strong>, la disponibilidad del arreglo no podrá ser asegurada.</p>
+</div>  <div class="catalog-grid" id="catalogGrid">
     <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-btn"></div></div></div>
     <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-btn"></div></div></div>
     <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-btn"></div></div></div>
     <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-btn"></div></div></div>
   </div>
 </section>
+
+
+<!-- PEDIDO PERSONALIZADO -->
+<section id="personalizado">
+  <div class="custom-order-inner">
+    <p class="section-label">✦ Hecho para ti ✦</p>
+    <h2 class="section-title">¿No encontraste lo que buscas?</h2>
+    <div class="custom-order-card">
+      <div class="custom-order-icon">🎨</div>
+      <p class="custom-order-desc">
+        ¿Tienes algo especial en mente pero no lo ves en el catálogo? <strong>¡No hay problema!</strong><br /><br />
+        Cuéntanos tu idea — colores, flores, estilo, ocasión — y nosotros creamos un arreglo
+        <strong>completamente personalizado</strong> para ti. Cada pieza es artesanal y única,
+        diseñada con amor para que encaje perfectamente con tu visión.
+      </p>
+      <div class="custom-order-features">
+        <div class="custom-feature"><span class="cf-icon">🎨</span><span>Tú eliges los colores</span></div>
+        <div class="custom-feature"><span class="cf-icon">🌸</span><span>Tú eliges las flores</span></div>
+        <div class="custom-feature"><span class="cf-icon">📐</span><span>Tú eliges el tamaño</span></div>
+        <div class="custom-feature"><span class="cf-icon">💝</span><span>Perfecto para regalar</span></div>
+      </div>
+      <a href="https://wa.me/5218134000720?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20un%20arreglo%20personalizado%20%F0%9F%8C%BF" target="_blank" rel="noopener noreferrer" class="btn-custom-order">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.099 1.508 5.83L.057 23.625a.75.75 0 0 0 .921.921l5.866-1.447A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.893 0-3.665-.51-5.19-1.397l-.371-.22-3.83.944.964-3.742-.242-.387A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        💬 Pedir arreglo personalizado
+      </a>
+    </div>
+  </div>
+</section>
+
 
 <!-- GALERÍA -->
 <section id="galeria">
