@@ -635,8 +635,8 @@
 
 /* 4. Entrada editorial al aparecer en pantalla */
 .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: translateY(0);
   transition:
     opacity 700ms ease,
     transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -782,6 +782,11 @@
   .gallery-card:hover .card-img-wrap::before {
     animation: none;
   }
+}
+
+#galeriaGrid .gallery-card {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
   </style>
@@ -1008,35 +1013,41 @@
         grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1">No hay arreglos disponibles por el momento. 🍂</div>';
         return;
       }
-      grid.innerHTML = items.map(function (a) {
-        var precio = fmtPrecio(a.precio);
-        var imgSrc = a.imagen_url || "";
+    grid.innerHTML = items.map(function (a) {
+      var precio = fmtPrecio(a.precio);
+      var imgSrc = a.imagen_url || "";
 
-        return [
-          '<div class="flower-card reveal-on-scroll" data-id="' + a.id + '">',
-            '<div class="card-img-wrap">',
-              '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
-              ' onload="this.classList.add(\'loaded\')"',
-              ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
-              precio ? '<div class="card-price-badge">' + precio + '</div>' : "",
-            '</div>',
-            '<div class="card-body">',
-              '<div class="card-name-display">' + a.nombre + '</div>',
-              '<button class="btn-wa" data-open="' + a.id + '">',
-                WA_SVG + " Pedir por WhatsApp",
-              '</button>',
-            '</div>',
-          '</div>'
-        ].join("");
-      }).join("");
+      return [
+        '<div class="gallery-card reveal-on-scroll" data-id="' + a.id + '">',
+          '<div class="card-img-wrap">',
+            '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
+            ' onload="this.classList.add(\'loaded\')"',
+            ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
+            precio ? '<div class="card-price-badge">' + precio + '</div>' : "",
+            '<div class="sold-ribbon">Vendido</div>',
+          '</div>',
+          '<div class="card-body">',
+            '<div class="card-name-display">' + a.nombre + '</div>',
+            '<button class="btn-pedido" data-open="' + a.id + '">',
+              WA_SVG + " Quiero algo similar",
+            '</button>',
+          '</div>',
+        '</div>'
+      ].join("");
+    }).join("");
 
-      activarRevelados();
-      grid.onclick = function (e) {
-        var card = e.target.closest('.flower-card');
-        if (!card) return;
-        var a = items.find(function (x) { return String(x.id) === card.dataset.id; });
-        if (a) openModal(a);
-      };
+    activarRevelados();
+
+    grid.onclick = function (e) {
+      var card = e.target.closest(".gallery-card");
+      if (!card) return;
+
+      var a = items.find(function (x) {
+        return String(x.id) === card.dataset.id;
+      });
+
+      if (a) openGaleriaModal(a);
+    };
     }
 
     async function cargarGaleria() {
@@ -1121,45 +1132,46 @@
       document.getElementById('mainNav').classList.add('bar-gone');
     });
 
+
         // ---- Revelado suave al hacer scroll ----
+  
     var revealObserver = null;
 
-  function activarRevelados() {
-    var elementos = document.querySelectorAll(
-      ".reveal-on-scroll:not(.reveal-ready)"
-    );
-
-    if (!elementos.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      elementos.forEach(function (elemento) {
-        elemento.classList.add("is-visible", "reveal-ready");
-      });
-      return;
-    }
-
-    if (!revealObserver) {
-      revealObserver = new IntersectionObserver(
-        function (entradas, observer) {
-          entradas.forEach(function (entrada) {
-            if (!entrada.isIntersecting) return;
-
-            entrada.target.classList.add("is-visible");
-            entrada.target.classList.add("reveal-ready");
-            observer.unobserve(entrada.target);
-          });
-        },
-        {
-          threshold: 0.12,
-          rootMargin: "0px 0px -35px 0px"
-        }
+    function activarRevelados() {
+      var elementos = document.querySelectorAll(
+        ".reveal-on-scroll:not(.reveal-ready)"
       );
-    }
 
-    elementos.forEach(function (elemento) {
-      revealObserver.observe(elemento);
-    });
-  }
+      if (!elementos.length) return;
+
+      if (!("IntersectionObserver" in window)) {
+        elementos.forEach(function (elemento) {
+          elemento.classList.add("is-visible", "reveal-ready");
+        });
+        return;
+      }
+
+      if (!revealObserver) {
+        revealObserver = new IntersectionObserver(
+          function (entradas, observer) {
+            entradas.forEach(function (entrada) {
+              if (!entrada.isIntersecting) return;
+
+              entrada.target.classList.add("is-visible", "reveal-ready");
+              observer.unobserve(entrada.target);
+            });
+          },
+          {
+            threshold: 0.12,
+            rootMargin: "0px 0px -35px 0px"
+          }
+        );
+      }
+
+      elementos.forEach(function (elemento) {
+        revealObserver.observe(elemento);
+      });
+    }
 
   activarRevelados();
   cargarProductos();
