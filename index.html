@@ -1010,20 +1010,27 @@
       }
       grid.innerHTML = items.map(function (a) {
         var precio = fmtPrecio(a.precio);
-        var imgSrc = a.imagen_url || '';
+        var imgSrc = a.imagen_url || "";
+
         return [
           '<div class="flower-card reveal-on-scroll" data-id="' + a.id + '">',
             '<div class="card-img-wrap">',
-              '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308" onload="this.classList.add(\'loaded\')" onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
-              precio ? '<div class="card-price-badge">' + precio + '</div>' : '',
+              '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
+              ' onload="this.classList.add(\'loaded\')"',
+              ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
+              precio ? '<div class="card-price-badge">' + precio + '</div>' : "",
             '</div>',
             '<div class="card-body">',
               '<div class="card-name-display">' + a.nombre + '</div>',
-              '<button class="btn-wa" data-open="' + a.id + '">' + WA_SVG + ' Pedir por WhatsApp</button>',
+              '<button class="btn-wa" data-open="' + a.id + '">',
+                WA_SVG + " Pedir por WhatsApp",
+              '</button>',
             '</div>',
           '</div>'
-        ].join('');
-      }).join('');
+        ].join("");
+      }).join("");
+
+      activarRevelados();
       grid.onclick = function (e) {
         var card = e.target.closest('.flower-card');
         if (!card) return;
@@ -1115,22 +1122,30 @@
     });
 
         // ---- Revelado suave al hacer scroll ----
-    function activarRevelados() {
-      var elementos = document.querySelectorAll(".reveal-on-scroll");
+    var revealObserver = null;
 
-      if (!("IntersectionObserver" in window)) {
-        elementos.forEach(function (elemento) {
-          elemento.classList.add("is-visible");
-        });
-        return;
-      }
+  function activarRevelados() {
+    var elementos = document.querySelectorAll(
+      ".reveal-on-scroll:not(.reveal-ready)"
+    );
 
-      var observador = new IntersectionObserver(
+    if (!elementos.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      elementos.forEach(function (elemento) {
+        elemento.classList.add("is-visible", "reveal-ready");
+      });
+      return;
+    }
+
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(
         function (entradas, observer) {
           entradas.forEach(function (entrada) {
             if (!entrada.isIntersecting) return;
 
             entrada.target.classList.add("is-visible");
+            entrada.target.classList.add("reveal-ready");
             observer.unobserve(entrada.target);
           });
         },
@@ -1139,15 +1154,16 @@
           rootMargin: "0px 0px -35px 0px"
         }
       );
-
-      elementos.forEach(function (elemento) {
-        observador.observe(elemento);
-      });
     }
 
-    activarRevelados();
-    cargarProductos();
-    cargarGaleria();
+    elementos.forEach(function (elemento) {
+      revealObserver.observe(elemento);
+    });
+  }
+
+  activarRevelados();
+  cargarProductos();
+  cargarGaleria();
 
   </script>
 </body>
