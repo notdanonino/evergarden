@@ -514,6 +514,185 @@
   }
 }
 
+/* =========================================
+   ANIMACIONES OTOÑALES SUTILES
+   Pegar al final del <style>
+   ========================================= */
+
+/* 1. Brisa lenta para las hojas decorativas */
+@keyframes autumnBreeze {
+  0%, 100% {
+    transform: rotate(var(--leaf-rotate, 0deg)) translateY(0);
+  }
+
+  50% {
+    transform: rotate(calc(var(--leaf-rotate, 0deg) + 5deg)) translateY(-7px);
+  }
+}
+
+.hero-leaf-cluster .leaf {
+  animation: autumnBreeze 7s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.hero-leaf-cluster .leaf-one {
+  --leaf-rotate: 28deg;
+  animation-delay: -1.2s;
+}
+
+.hero-leaf-cluster .leaf-two {
+  --leaf-rotate: -24deg;
+  animation-delay: -3.4s;
+}
+
+.hero-leaf-cluster .leaf-three {
+  --leaf-rotate: 68deg;
+  animation-delay: -5.1s;
+}
+
+.hero-leaf-cluster .leaf-four {
+  --leaf-rotate: -55deg;
+  animation-delay: -2.4s;
+}
+
+/* Brisa independiente para el collage botánico */
+.about-collage-leaf {
+  animation: autumnBreeze 8.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.about-collage-leaf.leaf-a {
+  --leaf-rotate: -34deg;
+  animation-delay: -1.8s;
+}
+
+.about-collage-leaf.leaf-b {
+  --leaf-rotate: 25deg;
+  animation-delay: -4.6s;
+}
+
+.about-collage-leaf.leaf-c {
+  --leaf-rotate: 70deg;
+  animation-delay: -2.9s;
+}
+
+.about-collage-leaf.leaf-d {
+  --leaf-rotate: -55deg;
+  animation-delay: -6.2s;
+}
+
+/* 2. El sello del hero respira lentamente */
+@keyframes warmGlow {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 0 0 rgba(198, 106, 61, 0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(198, 106, 61, 0.13);
+  }
+}
+
+.hero-badge {
+  animation: warmGlow 4.8s ease-in-out infinite;
+}
+
+/* 3. Tarjetas: halo tibio muy discreto al pasar el mouse */
+.flower-card,
+.gallery-card {
+  isolation: isolate;
+}
+
+.flower-card::before,
+.gallery-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(218, 158, 87, 0.18),
+      transparent 52%
+    );
+  opacity: 0;
+  transition: opacity 350ms ease;
+  pointer-events: none;
+}
+
+.flower-card:hover::before,
+.gallery-card:hover::before {
+  opacity: 1;
+}
+
+.flower-card > *,
+.gallery-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 4. Entrada editorial al aparecer en pantalla */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Las tarjetas entran escalonadamente */
+.reveal-on-scroll:nth-child(2) {
+  transition-delay: 80ms;
+}
+
+.reveal-on-scroll:nth-child(3) {
+  transition-delay: 160ms;
+}
+
+.reveal-on-scroll:nth-child(4) {
+  transition-delay: 240ms;
+}
+
+/* 5. Contacto: respiración mínima de la composición botánica */
+@keyframes botanicalSway {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(3deg) translateY(-4px);
+  }
+}
+
+.contact-botanical-corner {
+  animation: botanicalSway 9s ease-in-out infinite;
+  transform-origin: right top;
+}
+
+/* Accesibilidad: sin movimiento para quien lo solicite */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -560,7 +739,7 @@
     <p class="section-label">✦ Disponibles ahora ✦</p>
     <h2 class="section-title">Catálogo actual</h2>
     <p class="section-desc">Toca cualquier arreglo para ver los detalles y pedirlo por WhatsApp.</p>
-    <div class="disclaimer-box">
+    <div class="disclaimer-box reveal-on-scroll">
       <span class="disclaimer-icon">⚠️</span>
       <p>Para apartar arreglos en stock, requerimos un <strong>anticipo mínimo del 50%</strong> para garantizar su disponibilidad. En caso de no recibir el pago correspondiente dentro de las siguientes <strong>24 horas</strong>, la disponibilidad del arreglo no podrá ser asegurada.</p>
     </div>
@@ -576,7 +755,7 @@
     <div class="custom-order-inner">
       <p class="section-label">✦ Hecho para ti ✦</p>
       <h2 class="section-title">¿No encontraste lo que buscas?</h2>
-      <div class="custom-order-card">
+      <div class="custom-order-card reveal-on-scroll">
         <div class="custom-order-icon">🎨</div>
         <p class="custom-order-desc">¿Tienes algo especial en mente pero no lo ves en el catálogo? <strong>¡No hay problema!</strong><br /><br />Cuéntanos tu idea — colores, flores, estilo, ocasión — y nosotros creamos un arreglo <strong>completamente personalizado</strong> para ti. Cada pieza es artesanal y única, diseñada con amor para que encaje perfectamente con tu visión. <br /><br />Los pedidos personalizados requieren un <strong>anticipo mínimo del 50%</strong>. En caso de no recibir el pago correspondiente dentro de las siguientes <strong>24 horas</strong>, el procesamiento de la solicitud <strong>no podrá ser realizado</strong>.</p>
         <div class="custom-order-features">
@@ -593,7 +772,7 @@
   <section id="galeria">
     <p class="section-label">✦ Nuestra galería ✦</p>
     <h2 class="section-title">Inspírate con estos diseños</h2>
-    <div class="galeria-intro-box">
+    <div class="galeria-intro-box reveal-on-scroll">
       <p>Aquí encontrarás todos los arreglos que han encontrado un hogar. 🏡<br /><br />¿Te enamoraste de alguno? Aunque ya fue vendido, podemos preparar algo <strong>muy similar bajo pedido</strong>, adaptado a tus gustos y necesidades. Cada pieza es artesanal, así que el resultado será único — igual de especial.</p>
       <a href="https://wa.me/5218134000720?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20un%20arreglo%20personalizado%20%F0%9F%8C%BF" target="_blank" rel="noopener noreferrer" class="gg-cta">💬 Pedir un arreglo personalizado</a>
     </div>
@@ -608,7 +787,7 @@
     <div class="quienes-inner">
       <p class="section-label">✦ Nuestra historia ✦</p>
       <h2 class="section-title">Quiénes Somos</h2>
-          <div class="about-collage" aria-hidden="true">
+          <div class="about-collage reveal-on-scroll" aria-hidden="true">
       <div class="about-collage-paper"></div>
 
       <span class="about-collage-leaf leaf-a">🍂</span>
@@ -642,7 +821,7 @@
     <p class="contact-tagline">✦ Estamos aquí para ti ✦</p>
     <h2 class="contact-title">Contáctanos</h2>
     <p class="contact-subtitle">¿Tienes dudas, quieres un arreglo personalizado o simplemente quieres decir hola? Escríbenos, respondemos rápido. 🍂</p>
-    <div class="contact-cards">
+    <div class="contact-cards reveal-on-scroll">
       <div class="contact-card"><div class="cc-icon">📍</div><h4>Ubicación</h4><p>Guadalupe, Nuevo León<br />México</p></div>
       <div class="contact-card"><div class="cc-icon">⏰</div><h4>Horario</h4><p>Lunes a Sábado<br />9:00 am – 8:00 pm</p></div>
       <div class="contact-card"><div class="cc-icon">💬</div><h4>WhatsApp</h4><p>+52 81 3400 0720</p></div>
@@ -843,8 +1022,41 @@
       document.getElementById('mainNav').classList.add('bar-gone');
     });
 
+        // ---- Revelado suave al hacer scroll ----
+    function activarRevelados() {
+      var elementos = document.querySelectorAll(".reveal-on-scroll");
+
+      if (!("IntersectionObserver" in window)) {
+        elementos.forEach(function (elemento) {
+          elemento.classList.add("is-visible");
+        });
+        return;
+      }
+
+      var observador = new IntersectionObserver(
+        function (entradas, observer) {
+          entradas.forEach(function (entrada) {
+            if (!entrada.isIntersecting) return;
+
+            entrada.target.classList.add("is-visible");
+            observer.unobserve(entrada.target);
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -35px 0px"
+        }
+      );
+
+      elementos.forEach(function (elemento) {
+        observador.observe(elemento);
+      });
+    }
+
+    activarRevelados();
     cargarProductos();
     cargarGaleria();
+
   </script>
 </body>
 </html>
