@@ -183,6 +183,337 @@
       .contact-cards{gap:14px}
       .contact-card{max-width:100%;min-width:unset}
     }
+
+    /* =========================================
+   DETALLES OTOÑALES · COLLAGE BOTÁNICO SUAVE
+   ========================================= */
+
+/* Hojas decorativas: capas suaves, no Halloween */
+.autumn-leaf {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  filter: drop-shadow(0 10px 12px rgba(89, 51, 25, 0.12));
+}
+
+/* HERO: composición de hojas apiladas */
+.hero-leaf-cluster {
+  position: absolute;
+  width: min(34vw, 380px);
+  height: min(34vw, 380px);
+  right: clamp(10px, 5vw, 78px);
+  bottom: clamp(50px, 8vw, 110px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.hero-leaf-cluster .leaf {
+  position: absolute;
+  display: block;
+  line-height: 1;
+  filter: drop-shadow(0 12px 16px rgba(82, 50, 28, 0.14));
+}
+
+.hero-leaf-cluster .leaf-one {
+  right: 7%;
+  bottom: 5%;
+  font-size: clamp(5.5rem, 10vw, 10rem);
+  transform: rotate(28deg);
+  color: #b6643b;
+}
+
+.hero-leaf-cluster .leaf-two {
+  right: 34%;
+  bottom: 25%;
+  font-size: clamp(4.3rem, 8vw, 7.8rem);
+  transform: rotate(-24deg);
+  color: #d49a51;
+}
+
+.hero-leaf-cluster .leaf-three {
+  right: 2%;
+  bottom: 39%;
+  font-size: clamp(3.4rem, 6vw, 6.2rem);
+  transform: rotate(68deg);
+  color: #8c6c48;
+}
+
+.hero-leaf-cluster .leaf-four {
+  right: 48%;
+  bottom: 5%;
+  font-size: clamp(3rem, 5vw, 5.2rem);
+  transform: rotate(-55deg);
+  color: #c9824d;
+}
+
+.hero > :not(.hero-leaf-cluster) {
+  position: relative;
+  z-index: 1;
+}
+
+/* CATÁLOGO: hojitas pequeñas en los laterales */
+#catalogo::before,
+#catalogo::after {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.24;
+  font-size: clamp(4rem, 8vw, 8rem);
+  filter: drop-shadow(0 10px 15px rgba(82, 50, 28, 0.09));
+}
+
+#catalogo::before {
+  content: "🍂";
+  top: 80px;
+  left: max(8px, 2vw);
+  transform: rotate(-28deg);
+}
+
+#catalogo::after {
+  content: "🍁";
+  bottom: 42px;
+  right: max(8px, 2vw);
+  transform: rotate(24deg);
+}
+
+/* Tarjetas del catálogo: detalle botánico casi imperceptible */
+.flower-card .card-img-wrap::after,
+.gallery-card .card-img-wrap::after {
+  content: "✦";
+  position: absolute;
+  top: 12px;
+  left: 13px;
+  z-index: 3;
+  color: #b97843;
+  font-size: 1.1rem;
+  opacity: 0.55;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+.flower-card:nth-child(3n + 1) .card-img-wrap::after {
+  content: "🍂";
+  font-size: 1.25rem;
+  opacity: 0.34;
+}
+
+.flower-card:nth-child(3n + 2) .card-img-wrap::after {
+  content: "🌾";
+  font-size: 1.1rem;
+  opacity: 0.42;
+}
+
+.gallery-card:nth-child(3n + 1) .card-img-wrap::after {
+  content: "🍁";
+  font-size: 1.2rem;
+  opacity: 0.32;
+}
+
+/* QUIÉNES SOMOS: collage editorial con hojas apiladas */
+#quienes {
+  overflow: hidden;
+}
+
+.about-collage {
+  position: relative;
+  width: min(100%, 830px);
+  min-height: 205px;
+  margin: 0 auto 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-collage-paper {
+  position: absolute;
+  width: min(70%, 560px);
+  min-height: 150px;
+  background: linear-gradient(135deg, #fffaf4 0%, #f3e6d8 100%);
+  border: 1px solid rgba(159, 97, 55, 0.14);
+  box-shadow: 0 15px 35px rgba(82, 50, 28, 0.1);
+  border-radius: 8px 26px 12px 30px;
+  transform: rotate(-2.5deg);
+}
+
+.about-collage-paper::before {
+  content: "";
+  position: absolute;
+  inset: 11px;
+  border: 1px dashed rgba(182, 106, 61, 0.22);
+  border-radius: 4px 20px 8px 22px;
+  pointer-events: none;
+}
+
+.about-collage-text {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  padding: 30px 50px;
+  text-align: center;
+  color: #5a3a2c;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.about-collage-text strong {
+  color: #b56239;
+  font-style: normal;
+}
+
+.about-collage-leaf {
+  position: absolute;
+  z-index: 3;
+  display: block;
+  line-height: 1;
+  filter: drop-shadow(0 10px 11px rgba(82, 50, 28, 0.14));
+  pointer-events: none;
+}
+
+.about-collage-leaf.leaf-a {
+  top: 8px;
+  left: 7%;
+  font-size: clamp(4.2rem, 7vw, 7rem);
+  transform: rotate(-34deg);
+}
+
+.about-collage-leaf.leaf-b {
+  bottom: -8px;
+  right: 7%;
+  font-size: clamp(4.5rem, 7.5vw, 7.4rem);
+  transform: rotate(25deg);
+}
+
+.about-collage-leaf.leaf-c {
+  top: 25px;
+  right: 17%;
+  font-size: clamp(2.7rem, 4vw, 4.4rem);
+  transform: rotate(70deg);
+}
+
+.about-collage-leaf.leaf-d {
+  bottom: 6px;
+  left: 18%;
+  font-size: clamp(2.5rem, 4vw, 4.1rem);
+  transform: rotate(-55deg);
+}
+
+/* CONTACTO: remate botánico discreto */
+#contacto {
+  overflow: hidden;
+}
+
+.contact-botanical-corner {
+  position: absolute;
+  right: clamp(8px, 4vw, 65px);
+  top: 36px;
+  width: 175px;
+  height: 175px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.contact-botanical-corner span {
+  position: absolute;
+  display: block;
+  line-height: 1;
+  filter: drop-shadow(0 8px 10px rgba(82, 50, 28, 0.1));
+}
+
+.contact-botanical-corner .contact-leaf-one {
+  top: 0;
+  right: 0;
+  font-size: 5rem;
+  transform: rotate(23deg);
+}
+
+.contact-botanical-corner .contact-leaf-two {
+  top: 53px;
+  right: 71px;
+  font-size: 3.6rem;
+  transform: rotate(-52deg);
+}
+
+.contact-botanical-corner .contact-leaf-three {
+  top: 95px;
+  right: 7px;
+  font-size: 3rem;
+  transform: rotate(72deg);
+}
+
+/* Móvil: deja el diseño ligero y sin decoraciones invasivas */
+@media (max-width: 700px) {
+  .hero-leaf-cluster {
+    width: 230px;
+    height: 230px;
+    right: -45px;
+    bottom: 55px;
+    opacity: 0.42;
+  }
+
+  #catalogo::before,
+  #catalogo::after {
+    display: none;
+  }
+
+  .about-collage {
+    min-height: 240px;
+    margin-bottom: 42px;
+  }
+
+  .about-collage-paper {
+    width: 82%;
+    min-height: 165px;
+  }
+
+  .about-collage-text {
+    padding: 27px 31px;
+  }
+
+  .about-collage-leaf.leaf-a {
+    left: -4%;
+  }
+
+  .about-collage-leaf.leaf-b {
+    right: -4%;
+  }
+
+  .about-collage-leaf.leaf-c {
+    right: 4%;
+    top: 7px;
+  }
+
+  .about-collage-leaf.leaf-d {
+    left: 5%;
+  }
+
+  .contact-botanical-corner {
+    width: 120px;
+    height: 120px;
+    right: -23px;
+    top: 18px;
+    opacity: 0.24;
+  }
+
+  .contact-botanical-corner .contact-leaf-one {
+    font-size: 4rem;
+  }
+
+  .contact-botanical-corner .contact-leaf-two {
+    top: 39px;
+    right: 55px;
+    font-size: 2.9rem;
+  }
+
+  .contact-botanical-corner .contact-leaf-three {
+    top: 72px;
+    font-size: 2.5rem;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -206,6 +537,13 @@
   </nav>
 
   <section class="hero" id="inicio">
+    <div class="hero-leaf-cluster" aria-hidden="true">
+      <span class="leaf leaf-one">🍂</span>
+      <span class="leaf leaf-two">🍁</span>
+      <span class="leaf leaf-three">🌾</span>
+      <span class="leaf leaf-four">🍂</span>
+    </div>
+    
     <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="hero-logo-img" width="110" height="110" />
     <div class="hero-badge">✦ Arreglos florales artificiales ✦</div>
     <h1>Ever<br /><span>Garden</span></h1>
@@ -270,6 +608,20 @@
     <div class="quienes-inner">
       <p class="section-label">✦ Nuestra historia ✦</p>
       <h2 class="section-title">Quiénes Somos</h2>
+          <div class="about-collage" aria-hidden="true">
+      <div class="about-collage-paper"></div>
+
+      <span class="about-collage-leaf leaf-a">🍂</span>
+      <span class="about-collage-leaf leaf-b">🍁</span>
+      <span class="about-collage-leaf leaf-c">🌾</span>
+      <span class="about-collage-leaf leaf-d">🌿</span>
+
+      <p class="about-collage-text">
+        Cada arreglo está pensado para aportar
+        <strong>calidez, belleza y un detalle especial</strong>
+        a los espacios que más quieres.
+      </p>
+    </div>
       <p class="about-intro"><strong>EverGarden</strong> nació de una idea simple pero poderosa: hacer de cada espacio algo más bonito, más cálido y más propio. Creemos que la decoración no debería ser complicada, y que un arreglo —aunque artificial— tiene el poder de transformar un rincón, una mesa o un hogar entero.<br /><br />Cada pieza de nuestro catálogo es <strong>única e irrepetible</strong> y está sujeta a disponibilidad. Pero si tienes algo en mente, con gusto creamos un arreglo <strong>personalizado a tu gusto</strong>. Todos los pedidos se realizan directamente por WhatsApp.</p>
       <div class="about-grid">
         <div class="about-card"><div class="icon">🌷</div><h3>Piezas únicas</h3><p>Cada arreglo es irrepetible — no producimos en serie. Cada pieza tiene su propia personalidad y estilo.</p></div>
@@ -280,6 +632,12 @@
   </section>
 
   <section id="contacto">
+    <div class="contact-botanical-corner" aria-hidden="true">
+      <span class="contact-leaf-one">🍁</span>
+      <span class="contact-leaf-two">🌾</span>
+      <span class="contact-leaf-three">🍂</span>
+    </div>
+    
     <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="contact-logo" />
     <p class="contact-tagline">✦ Estamos aquí para ti ✦</p>
     <h2 class="contact-title">Contáctanos</h2>
