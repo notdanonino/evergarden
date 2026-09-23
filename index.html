@@ -693,6 +693,97 @@
   }
 }
 
+/* =========================================
+   HOVER OTOÑAL · HOJA QUE DESCANSA
+   ========================================= */
+
+/*
+  Esta hoja aparece solo al pasar el mouse sobre
+  las fotos del catálogo y la galería.
+*/
+.flower-card .card-img-wrap::before,
+.gallery-card .card-img-wrap::before {
+  content: "🍂";
+  position: absolute;
+  top: 12px;
+  right: 13px;
+  z-index: 4;
+
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+
+  font-size: 1.55rem;
+  line-height: 1;
+
+  background: rgba(255, 250, 244, 0.76);
+  border: 1px solid rgba(181, 116, 67, 0.2);
+  border-radius: 50% 44% 50% 46%;
+
+  box-shadow:
+    0 5px 15px rgba(82, 50, 28, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  opacity: 0;
+  transform: translate(10px, -10px) rotate(-24deg) scale(0.75);
+  transform-origin: center;
+  transition:
+    opacity 260ms ease,
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  pointer-events: none;
+}
+
+/* La hoja entra lentamente al pasar sobre la tarjeta */
+.flower-card:hover .card-img-wrap::before,
+.gallery-card:hover .card-img-wrap::before {
+  opacity: 1;
+  transform: translate(0, 0) rotate(9deg) scale(1);
+  animation: restingLeaf 3.8s ease-in-out 450ms infinite;
+}
+
+/* Movimiento mínimo para simular una brisa */
+@keyframes restingLeaf {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(9deg) scale(1);
+  }
+
+  50% {
+    transform: translate(-2px, 2px) rotate(14deg) scale(1.02);
+  }
+}
+
+/*
+  Las tarjetas de la galería usan una hoja ligeramente
+  diferente para que no parezca un patrón repetido.
+*/
+.gallery-card:nth-child(3n + 2) .card-img-wrap::before {
+  content: "🍁";
+}
+
+.gallery-card:nth-child(3n + 3) .card-img-wrap::before {
+  content: "🌾";
+  font-size: 1.35rem;
+}
+
+/* En pantallas táctiles no dependemos de hover */
+@media (hover: none) {
+  .flower-card .card-img-wrap::before,
+  .gallery-card .card-img-wrap::before {
+    display: none;
+  }
+}
+
+/* Respeta la configuración de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .flower-card:hover .card-img-wrap::before,
+  .gallery-card:hover .card-img-wrap::before {
+    animation: none;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -732,7 +823,7 @@
       <a href="#catalogo" class="btn-primary">Ver catálogo →</a>
       <a href="#quienes" class="btn-secondary">Quiénes somos</a>
     </div>
-    <div class="hero-scroll">↓ explorar</div>
+    <div class="hero-scroll"><br />↓ explorar</div>
   </section>
 
   <section id="catalogo">
@@ -921,7 +1012,7 @@
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
         return [
-          '<div class="flower-card" data-id="' + a.id + '">',
+          '<div class="flower-card reveal-on-scroll" data-id="' + a.id + '">',
             '<div class="card-img-wrap">',
               '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308" onload="this.classList.add(\'loaded\')" onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
               precio ? '<div class="card-price-badge">' + precio + '</div>' : '',
@@ -961,7 +1052,7 @@
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
         return [
-          '<div class="gallery-card" data-id="' + a.id + '">',
+          '<div class="gallery-card reveal-on-scroll" data-id="' + a.id + '">',
             '<div class="card-img-wrap">',
               '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308" onload="this.classList.add(\'loaded\')" onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
               precio ? '<div class="card-price-badge">' + precio + '</div>' : '',
@@ -973,6 +1064,7 @@
             '</div>',
           '</div>'
         ].join('');
+        activarRevelados();
       }).join('');
       grid.onclick = function (e) {
         var card = e.target.closest('.gallery-card');
