@@ -973,6 +973,215 @@ body::before {
   transform: rotate(-2.5deg) translateY(4px);
 }
 
+/* =========================================
+   CORRECCIONES MÓVILES DEL HERO
+   ========================================= */
+
+@media (max-width: 700px) {
+  /*
+    1. Barra superior:
+    evita que el texto tape la navegación o se vuelva
+    demasiado alto.
+  */
+  .announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    min-height: 56px;
+    padding: 8px 42px 8px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.72rem;
+    line-height: 1.35;
+    letter-spacing: 0.035em;
+    text-align: center;
+  }
+
+  .announcement-bar .bar-text {
+    display: block;
+    width: 100%;
+    max-width: 330px;
+  }
+
+  .announcement-bar .bar-sep {
+    margin: 0 5px;
+  }
+
+  .announcement-bar .bar-close {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 1.15rem;
+    transform: translateY(-50%);
+  }
+
+  /*
+    La navegación debe comenzar debajo de la barra.
+    La barra tiene aproximadamente 56px de alto.
+  */
+  nav {
+    top: 56px;
+    min-height: 58px;
+    padding: 10px 16px;
+  }
+
+  nav.bar-gone {
+    top: 0;
+  }
+
+  /*
+    2. Hero:
+    se agrega espacio superior para que el contenido
+    no quede debajo de la barra/nav.
+  */
+  .hero {
+    min-height: 100svh;
+    padding: 150px 18px 118px;
+  }
+
+  /*
+    3. Badge:
+    ocupa el ancho disponible sin desbordarse.
+  */
+  .hero-badge {
+    width: min(100%, 360px);
+    max-width: calc(100vw - 32px);
+
+    padding: 9px 14px;
+
+    font-size: 0.68rem;
+    line-height: 1.35;
+    letter-spacing: 0.105em;
+    text-align: center;
+    white-space: normal;
+  }
+
+  /*
+    El texto largo se permite envolver correctamente.
+  */
+  .hero-badge span {
+    display: inline;
+  }
+
+  /*
+    4. Botones:
+    se mantienen centrados y no chocan con el indicador inferior.
+  */
+  .hero-cta {
+    width: 100%;
+    max-width: 340px;
+    margin-top: 32px;
+    gap: 12px;
+  }
+
+  .hero-cta a {
+    width: 100%;
+  }
+
+  /*
+    5. Indicador explorar:
+    posición independiente, sin depender de spans
+    ni quedar detrás de la barra del navegador.
+  */
+  .hero-scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+
+    width: 100%;
+    min-height: 42px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    font-size: 0.72rem;
+    line-height: 1.15;
+    letter-spacing: 0.14em;
+    text-align: center;
+
+    transform: translateX(-50%);
+    animation: none;
+  }
+
+  .hero-scroll::before {
+    content: "↓";
+    display: block;
+    height: 18px;
+
+    font-family: Georgia, serif;
+    font-size: 1.45rem;
+    line-height: 1;
+    color: var(--accent);
+
+    animation: mobileScrollArrow 1.8s ease-in-out infinite;
+  }
+
+  .hero-scroll::after {
+    content: "explorar";
+    display: block;
+    color: var(--accent);
+  }
+
+  /*
+    Si el HTML ya tiene spans dentro de hero-scroll,
+    los ocultamos para evitar duplicar la flecha/texto.
+  */
+  .hero-scroll span {
+    display: none !important;
+  }
+
+  /*
+    Reduce la composición de hojas en móviles para
+    que no tape los botones.
+  */
+  .hero-leaf-cluster {
+    right: -75px;
+    bottom: 68px;
+    width: 210px;
+    height: 210px;
+    opacity: 0.34;
+  }
+
+  .autumn-glow-particles {
+    opacity: 0.55;
+  }
+}
+
+@keyframes mobileScrollArrow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll::before {
+    animation: none;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1013,7 +1222,9 @@ body::before {
     </div>
     
     <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="hero-logo-img" width="110" height="110" />
-    <div class="hero-badge">✦ Arreglos florales artificiales ✦</div>
+    <div class="hero-badge">
+      ✦ Arreglos florales artificiales ✦
+    </div>    
     <h1>Ever<br /><span>Garden</span></h1>
     <p class="hero-slogan">Belleza que no se marchita.</p>
     <p class="hero-sub">Arreglos elegantes para decorar tu hogar o regalar con amor.</p>
@@ -1021,10 +1232,7 @@ body::before {
       <a href="#catalogo" class="btn-primary">Ver catálogo →</a>
       <a href="#quienes" class="btn-secondary">Quiénes somos</a>
     </div>
-    <div class="hero-scroll">
-        <span style="display: block;">↓</span>
-        <span style="display: block;">explorar</span>
-    </div>
+    <div class="hero-scroll" aria-hidden="true"></div>
   </section>
 
   <section id="catalogo">
