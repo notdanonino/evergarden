@@ -999,11 +999,30 @@
 
     async function cargarProductos() {
       try {
-        const res = await fetch('/api/productos');
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        renderCards(await res.json());
+        const res = await fetch("/api/productos");
+
+        if (!res.ok) {
+          throw new Error("HTTP " + res.status);
+        }
+
+        const items = await res.json();
+        const disponibles = items.filter(function (item) {
+          return (
+            item.vendido !== true &&
+            item.vendido !== 1 &&
+            item.estado !== "vendido" &&
+            item.status !== "sold"
+          );
+        });
+
+        renderCards(disponibles);
       } catch (e) {
-        document.getElementById('catalogGrid').innerHTML = '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar productos. 🍂</div>';
+        console.error("Error al cargar productos:", e);
+
+        document.getElementById("catalogGrid").innerHTML =
+          '<div class="catalog-loading" style="grid-column:1/-1">' +
+          "Error al cargar productos. 🍂" +
+          "</div>";
       }
     }
 
@@ -1018,21 +1037,20 @@
       var imgSrc = a.imagen_url || "";
 
       return [
-        '<div class="gallery-card reveal-on-scroll" data-id="' + a.id + '">',
+        '<div class="flower-card" data-id="' + a.id + '">',
           '<div class="card-img-wrap">',
             '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
             ' onload="this.classList.add(\'loaded\')"',
             ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
-            precio ? '<div class="card-price-badge">' + precio + '</div>' : "",
-            '<div class="sold-ribbon">Vendido</div>',
-          '</div>',
+            precio ? '<div class="card-price-badge">' + precio + "</div>" : "",
+          "</div>",
           '<div class="card-body">',
-            '<div class="card-name-display">' + a.nombre + '</div>',
-            '<button class="btn-pedido" data-open="' + a.id + '">',
-              WA_SVG + " Quiero algo similar",
-            '</button>',
-          '</div>',
-        '</div>'
+            '<div class="card-name-display">' + a.nombre + "</div>",
+            '<button class="btn-wa" data-open="' + a.id + '">',
+              WA_SVG + " Pedir por WhatsApp",
+            "</button>",
+          "</div>",
+        "</div>"
       ].join("");
     }).join("");
 
@@ -1069,19 +1087,23 @@
       grid.innerHTML = items.map(function (a) {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
-        return [
-          '<div class="gallery-card reveal-on-scroll" data-id="' + a.id + '">',
-            '<div class="card-img-wrap">',
-              '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308" onload="this.classList.add(\'loaded\')" onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
-              precio ? '<div class="card-price-badge">' + precio + '</div>' : '',
-              '<div class="sold-ribbon">Vendido</div>',
-            '</div>',
-            '<div class="card-body">',
-              '<div class="card-name-display">' + a.nombre + '</div>',
-              '<button class="btn-pedido" data-open="' + a.id + '">' + WA_SVG + ' Quiero algo similar</button>',
-            '</div>',
-          '</div>'
-        ].join('');
+      return [
+        '<div class="gallery-card" data-id="' + a.id + '">',
+          '<div class="card-img-wrap">',
+            '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
+            ' onload="this.classList.add(\'loaded\')"',
+            ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
+            precio ? '<div class="card-price-badge">' + precio + "</div>" : "",
+            '<div class="sold-ribbon">Vendido</div>',
+          "</div>",
+          '<div class="card-body">',
+            '<div class="card-name-display">' + a.nombre + "</div>",
+            '<button class="btn-pedido" data-open="' + a.id + '">',
+              WA_SVG + " Quiero algo similar",
+            "</button>",
+          "</div>",
+        "</div>"
+      ].join("");
         activarRevelados();
       }).join('');
       grid.onclick = function (e) {
