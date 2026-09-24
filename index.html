@@ -598,12 +598,6 @@
   animation: warmGlow 4.8s ease-in-out infinite;
 }
 
-/* 3. Tarjetas: halo tibio muy discreto al pasar el mouse */
-.flower-card,
-.gallery-card {
-  isolation: isolate;
-}
-
 .flower-card::before,
 .gallery-card::before {
   content: "";
@@ -782,11 +776,6 @@
   .gallery-card:hover .card-img-wrap::before {
     animation: none;
   }
-}
-
-#galeriaGrid .gallery-card {
-  opacity: 1 !important;
-  transform: none !important;
 }
 
 /* =========================================
@@ -982,22 +971,6 @@ body::before {
 
 .gallery-card {
   isolation: isolate;
-}
-
-.gallery-card::before {
-  content: "";
-  position: absolute;
-  inset: 9px -7px -9px 7px;
-  z-index: -1;
-
-  border-radius: 20px;
-  background: #eadbc9;
-  border: 1px solid rgba(128, 79, 47, 0.12);
-
-  transform: rotate(1.4deg);
-  box-shadow: 0 12px 24px rgba(74, 44, 26, 0.09);
-
-  transition: transform 280ms ease;
 }
 
 .gallery-card:hover::before {
@@ -1295,19 +1268,23 @@ body::before {
           "</div>",
         "</div>"
       ].join("");
+      activarRevelados();
     }).join("");
 
     activarRevelados();
 
     grid.onclick = function (e) {
-      var card = e.target.closest(".gallery-card");
+      var card = e.target.closest(".flower-card");
+
       if (!card) return;
 
-      var a = items.find(function (x) {
-        return String(x.id) === card.dataset.id;
+      var producto = items.find(function (item) {
+        return String(item.id) === card.dataset.id;
       });
 
-      if (a) openGaleriaModal(a);
+      if (producto) {
+        openModal(producto);
+      }
     };
     }
 
@@ -1349,6 +1326,7 @@ body::before {
       ].join("");
         activarRevelados();
       }).join('');
+      
       grid.onclick = function (e) {
         var card = e.target.closest('.gallery-card');
         if (!card) return;
@@ -1392,15 +1370,10 @@ body::before {
     navToggle.addEventListener('click', function () { navToggle.classList.toggle('open'); navLinks.classList.toggle('open'); });
     navLinks.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', function () { navToggle.classList.remove('open'); navLinks.classList.remove('open'); }); });
 
-    document.getElementById('barCloseBtn').addEventListener('click', function () {
-      document.getElementById('announcementBar').classList.add('hidden');
-      document.getElementById('mainNav').classList.add('bar-gone');
-    });
-
-
         // ---- Revelado suave al hacer scroll ----
   
     var revealObserver = null;
+
 
     function activarRevelados() {
       var elementos = document.querySelectorAll(
