@@ -789,6 +789,229 @@
   transform: none !important;
 }
 
+/* =========================================
+   TEXTURA DE PAPEL · OTOÑO ARTESANAL
+   ========================================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  opacity: 0.22;
+
+  background-image:
+    radial-gradient(
+      rgba(117, 77, 45, 0.12) 0.55px,
+      transparent 0.8px
+    ),
+    radial-gradient(
+      rgba(255, 255, 255, 0.75) 0.55px,
+      transparent 0.8px
+    );
+
+  background-position:
+    0 0,
+    4px 4px;
+
+  background-size:
+    8px 8px,
+    8px 8px;
+
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    opacity: 0.14;
+  }
+}
+
+/* =========================================
+   SEPARADOR BOTÁNICO EDITORIAL
+   ========================================= */
+
+.botanical-divider {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  width: min(100% - 48px, 460px);
+  margin: 0 auto 74px;
+
+  color: #b86a3d;
+  opacity: 0.72;
+}
+
+.botanical-divider span {
+  display: inline-block;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.botanical-divider i {
+  width: min(15vw, 82px);
+  height: 1px;
+  display: block;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(184, 106, 61, 0.55),
+    transparent
+  );
+}
+
+.botanical-divider span:nth-of-type(1) {
+  transform: rotate(-18deg);
+}
+
+.botanical-divider span:nth-of-type(2) {
+  transform: translateY(-2px);
+}
+
+.botanical-divider span:nth-of-type(3) {
+  transform: rotate(18deg);
+}
+
+@media (max-width: 700px) {
+  .botanical-divider {
+    margin-bottom: 54px;
+  }
+
+  .botanical-divider i {
+    width: 42px;
+  }
+}
+
+/* =========================================
+   DESTELLOS CÁLIDOS DEL HERO
+   ========================================= */
+
+.autumn-glow-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.autumn-glow-particles span {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+
+  background: rgba(218, 165, 91, 0.72);
+  box-shadow: 0 0 16px rgba(218, 165, 91, 0.72);
+
+  animation: autumnGlowFloat 7s ease-in-out infinite;
+}
+
+.autumn-glow-particles span:nth-child(1) {
+  top: 24%;
+  left: 16%;
+  animation-delay: -1s;
+}
+
+.autumn-glow-particles span:nth-child(2) {
+  top: 38%;
+  left: 8%;
+  width: 5px;
+  height: 5px;
+  animation-delay: -4s;
+}
+
+.autumn-glow-particles span:nth-child(3) {
+  top: 18%;
+  right: 22%;
+  width: 5px;
+  height: 5px;
+  animation-delay: -2s;
+}
+
+.autumn-glow-particles span:nth-child(4) {
+  bottom: 27%;
+  right: 15%;
+  animation-delay: -5s;
+}
+
+.autumn-glow-particles span:nth-child(5) {
+  bottom: 20%;
+  left: 28%;
+  width: 4px;
+  height: 4px;
+  animation-delay: -3s;
+}
+
+.autumn-glow-particles span:nth-child(6) {
+  top: 48%;
+  right: 8%;
+  width: 4px;
+  height: 4px;
+  animation-delay: -6s;
+}
+
+@keyframes autumnGlowFloat {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translateY(0) scale(0.85);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: translateY(-16px) scale(1.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .autumn-glow-particles span {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* =========================================
+   GALERÍA · FOTOS APILADAS TIPO SCRAPBOOK
+   ========================================= */
+
+.gallery-card {
+  isolation: isolate;
+}
+
+.gallery-card::before {
+  content: "";
+  position: absolute;
+  inset: 9px -7px -9px 7px;
+  z-index: -1;
+
+  border-radius: 20px;
+  background: #eadbc9;
+  border: 1px solid rgba(128, 79, 47, 0.12);
+
+  transform: rotate(1.4deg);
+  box-shadow: 0 12px 24px rgba(74, 44, 26, 0.09);
+
+  transition: transform 280ms ease;
+}
+
+.gallery-card:hover::before {
+  transform: rotate(2.6deg) translateY(4px);
+}
+
+.gallery-card:nth-child(even)::before {
+  transform: rotate(-1.3deg);
+}
+
+.gallery-card:nth-child(even):hover::before {
+  transform: rotate(-2.5deg) translateY(4px);
+}
+
   </style>
 </head>
 <body>
@@ -798,6 +1021,15 @@
   </div>
 
   <div id="flower-bg"></div>
+
+  <div class="autumn-glow-particles" aria-hidden="true">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  </div>
 
   <nav id="mainNav">
     <a href="#inicio" class="nav-logo"><img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" width="44" height="44" /></a>
@@ -846,6 +1078,14 @@
       <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-btn"></div></div></div>
     </div>
   </section>
+
+  <div class="botanical-divider" aria-hidden="true">
+  <span>🍂</span>
+  <i></i>
+  <span>🌾</span>
+  <i></i>
+  <span>🍁</span>
+  </div>
 
   <section id="personalizado">
     <div class="custom-order-inner">
