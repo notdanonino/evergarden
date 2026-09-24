@@ -312,6 +312,12 @@
   opacity: 0.32;
 }
 
+.gallery-card::before {
+  inset: 9px -7px -9px 7px;
+  background: #eadbc9;
+  transform: rotate(1.4deg);
+}
+
 /* QUIÉNES SOMOS: collage editorial con hojas apiladas */
 #quienes {
   overflow: hidden;
@@ -596,24 +602,6 @@
 
 .hero-badge {
   animation: warmGlow 4.8s ease-in-out infinite;
-}
-
-.flower-card::before,
-.gallery-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(218, 158, 87, 0.18),
-      transparent 52%
-    );
-  opacity: 0;
-  transition: opacity 350ms ease;
-  pointer-events: none;
 }
 
 .flower-card:hover::before,
@@ -1262,7 +1250,7 @@ body::before {
           "</div>",
           '<div class="card-body">',
             '<div class="card-name-display">' + a.nombre + "</div>",
-            '<button class="btn-wa" data-open="' + a.id + '">',
+            '<button class="btn-pedido" type="button" data-open="' + a.id + '">',
               WA_SVG + " Pedir por WhatsApp",
             "</button>",
           "</div>",
