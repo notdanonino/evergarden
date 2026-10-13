@@ -1042,14 +1042,14 @@ body::before {
     top: 0;
   }
 
-  /*
+/*
     2. Hero:
     se agrega espacio superior para que el contenido
     no quede debajo de la barra/nav.
   */
   .hero {
     min-height: 100svh;
-    padding: 150px 18px 118px;
+    padding: 150px 18px 165px; /* Subimos de 118 a 165px para darle aire a los botones */
   }
 
   /*
@@ -1096,10 +1096,10 @@ body::before {
     posición independiente, sin depender de spans
     ni quedar detrás de la barra del navegador.
   */
-  .hero-scroll {
+    .hero-scroll {
     position: absolute;
     left: 50%;
-    bottom: 10px;
+    bottom: 2px; 
 
     width: 100%;
     min-height: 42px;
