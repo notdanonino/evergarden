@@ -1485,7 +1485,7 @@ function renderCards(items) {
 
         return [
           '<div class="flower-card" data-id="' + a.id + '">',
-            ribbonDescuento, // <-- LISTÓN DE DESCUENTO AGREGADO AQUÍ AFUERA
+            ribbonDescuento, // <-- LISTÓN DE DESCUENTO
             '<div class="card-img-wrap">',
               '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
               ' onload="this.classList.add(\'loaded\')"',
@@ -1503,21 +1503,21 @@ function renderCards(items) {
       }).join("");
 
       activarRevelados();
+
+      // EL EVENTO DE CLIC DEBE IR AQUÍ ADENTRO
+      grid.onclick = function (e) {
+        var card = e.target.closest(".flower-card");
+        if (!card) return;
+
+        var producto = items.find(function (item) {
+          return String(item.id) === card.dataset.id;
+        });
+
+        if (producto) {
+          openModal(producto);
+        }
+      };
     }
-
-    grid.onclick = function (e) {
-      var card = e.target.closest(".flower-card");
-
-      if (!card) return;
-
-      var producto = items.find(function (item) {
-        return String(item.id) === card.dataset.id;
-      });
-
-      if (producto) {
-        openModal(producto);
-      }
-    };
     
 
     async function cargarGaleria() {
