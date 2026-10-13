@@ -95,11 +95,19 @@
         <div><label>Precio (MXN) *</label><input type="number" id="f-precio" placeholder="450" min="0" /></div>
         <div class="full"><label>Descripción</label><textarea id="f-descripcion" placeholder="Descripción del arreglo, materiales, tamaño..."></textarea></div>
         <div class="full"><label>URL de imagen *</label><input type="text" id="f-imagen" placeholder="https://...supabase.co/storage/v1/object/public/..." /></div>
-        <div>
+<div>
           <label>Disponible</label>
           <select id="f-disponible">
             <option value="true">✅ Sí</option>
             <option value="false">❌ No</option>
+          </select>
+        </div>
+        <!-- AGREGAMOS EL CAMPO DE DESCUENTO AQUÍ -->
+        <div>
+          <label>En Descuento</label>
+          <select id="f-descuento">
+            <option value="false">❌ No</option>
+            <option value="true">🏷️ Sí</option>
           </select>
         </div>
         <div style="display:flex;align-items:flex-end;gap:10px">
@@ -256,8 +264,13 @@
     var descripcion = document.getElementById('f-descripcion').value.trim();
     var imagen_url  = document.getElementById('f-imagen').value.trim();
     var disponible  = document.getElementById('f-disponible').value === 'true';
+    // LEEMOS EL VALOR DEL DESCUENTO
+    var en_descuento = document.getElementById('f-descuento').value === 'true'; 
+
     if (!nombre || !precio || !imagen_url) { mostrarMsg('Nombre, precio e imagen son obligatorios', 'error'); return; }
-    var body = { nombre: nombre, precio: precio, descripcion: descripcion, imagen_url: imagen_url, disponible: disponible, vendido: false };
+    
+    // AGREGAMOS en_descuento AL BODY QUE SE ENVÍA A SUPABASE
+    var body = { nombre: nombre, precio: precio, descripcion: descripcion, imagen_url: imagen_url, disponible: disponible, vendido: false, en_descuento: en_descuento };
     var r = id ? await sb.from('productos').update(body).eq('id', id) : await sb.from('productos').insert(body);
     if (r.error) { mostrarMsg('❌ Error: ' + r.error.message, 'error'); return; }
     mostrarMsg(id ? '✅ Arreglo actualizado' : '✅ Arreglo agregado', 'success');
@@ -272,6 +285,8 @@
     document.getElementById('f-descripcion').value = p.descripcion || '';
     document.getElementById('f-imagen').value = p.imagen_url || '';
     document.getElementById('f-disponible').value = String(p.disponible);
+    // CARGAMOS EL VALOR DEL DESCUENTO AL EDITAR
+    document.getElementById('f-descuento').value = String(p.en_descuento || false);
     document.getElementById('form-title').textContent = '✏️ Editando: ' + p.nombre;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -279,6 +294,8 @@
   function cancelarEdicion() {
     ['edit-id','f-nombre','f-precio','f-descripcion','f-imagen'].forEach(function(id) { document.getElementById(id).value = ''; });
     document.getElementById('f-disponible').value = 'true';
+    // LIMPIAMOS EL VALOR DEL DESCUENTO
+    document.getElementById('f-descuento').value = 'false';
     document.getElementById('form-title').textContent = '➕ Agregar nuevo arreglo';
   }
 
