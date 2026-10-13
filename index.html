@@ -185,8 +185,9 @@
     }
 
 /* Listón de descuento cruzado en la esquina */
-    .discount-ribbon {
-      position: absolute;
+    .flower-card .discount-ribbon,
+    .gallery-card .discount-ribbon {
+      position: absolute !important;
       top: 20px;
       left: -34px;
       width: 150px;
@@ -199,11 +200,9 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       transform: rotate(-45deg);
-      z-index: 20; /* Subimos el z-index para que quede encima de todo */
+      z-index: 50 !important; /* El !important obliga a que quede por encima de la imagen */
       box-shadow: 0 4px 12px rgba(198, 106, 61, 0.35);
       pointer-events: none;
-      /* Esto es súper importante para que funcione fuera del overflow:hidden: */
-      overflow: hidden; 
     }
 
     /* Le decimos a la tarjeta principal que corte los sobrantes del listón */
