@@ -184,6 +184,26 @@
       .contact-card{max-width:100%;min-width:unset}
     }
 
+/* Listón de descuento cruzado en la esquina */
+    .discount-ribbon {
+      position: absolute;
+      top: 18px;
+      left: -32px;
+      width: 140px;
+      text-align: center;
+      background: linear-gradient(135deg, #d2a14d, #c66a3d); /* Tonos dorados y cálidos */
+      color: #fff;
+      padding: 5px 0;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transform: rotate(-45deg);
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(198, 106, 61, 0.35);
+      pointer-events: none;
+    }
+
     /* =========================================
    DETALLES OTOÑALES · COLLAGE BOTÁNICO SUAVE
    ========================================= */
@@ -1131,11 +1151,11 @@ body::before {
     content: "↓";
     display: block;
     font-family: Georgia, serif;
-    font-size: 1.45rem;
+    font-size: 2.45rem;
     line-height: 1;
     color: var(--accent);
     animation: mobileScrollArrow 1.8s ease-in-out infinite;
-    margin-top: 16px; /* Separación extra para que no se pegue a la palabra */
+    margin-top: 14px; /* Separación extra para que no se pegue a la palabra */
   }
 
   /*
@@ -1506,9 +1526,23 @@ body::before {
       grid.innerHTML = items.map(function (a) {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
+        
+        // AQUÍ PONES LOS NOMBRES EXACTOS DE LOS ARREGLOS CON DESCUENTO
+        var arreglosConDescuento = [
+          "Sueños en Flor", 
+          "Flor de Cristal",
+          "Esencia Floral",
+          "Vida Amarilla"
+        ];
+        
+        // Verifica si el arreglo actual está en la lista de descuentos
+        var tieneDescuento = arreglosConDescuento.includes(a.nombre);
+        var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
+
       return [
         '<div class="gallery-card" data-id="' + a.id + '">',
           '<div class="card-img-wrap">',
+            ribbonDescuento, // <-- Aquí se inserta el listón si aplica
             '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
             ' onload="this.classList.add(\'loaded\')"',
             ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
