@@ -1527,16 +1527,21 @@ body::before {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
         
-// AQUÍ PONES LOS NOMBRES EXACTOS DE LOS ARREGLOS CON DESCUENTO
+// AQUÍ PONES LOS NOMBRES (en minúsculas y cambiando la 'ñ' por 'n' o quitando acentos)
         var arreglosConDescuento = [
-          "sueños en flor", 
+          "suenos en flor", 
           "flor de cristal",
           "esencia floral",
           "vida amarilla"
         ];
         
-        // Limpiamos el nombre de la base de datos (quitamos espacios extra y lo hacemos minúscula)
-        var nombreLimpio = a.nombre ? a.nombre.trim().toLowerCase() : "";
+        // Función rápida para quitar acentos y cambiar 'ñ' por 'n'
+        function limpiarTexto(str) {
+          return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ñ/g, "n");
+        }
+
+        // Limpiamos el nombre de la base de datos (quitamos espacios, a minúsculas y sin acentos/ñ)
+        var nombreLimpio = a.nombre ? limpiarTexto(a.nombre.trim().toLowerCase()) : "";
         
         // Verifica si el arreglo actual está en la lista de descuentos
         var tieneDescuento = arreglosConDescuento.includes(nombreLimpio);
