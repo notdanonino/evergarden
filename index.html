@@ -187,21 +187,28 @@
 /* Listón de descuento cruzado en la esquina */
     .discount-ribbon {
       position: absolute;
-      top: 18px;
-      left: -32px;
-      width: 140px;
+      top: 20px;
+      left: -34px;
+      width: 150px;
       text-align: center;
-      background: linear-gradient(135deg, #d2a14d, #c66a3d); /* Tonos dorados y cálidos */
+      background: linear-gradient(135deg, #d2a14d, #c66a3d);
       color: #fff;
-      padding: 5px 0;
+      padding: 6px 0;
       font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       transform: rotate(-45deg);
-      z-index: 10;
+      z-index: 20; /* Subimos el z-index para que quede encima de todo */
       box-shadow: 0 4px 12px rgba(198, 106, 61, 0.35);
       pointer-events: none;
+      /* Esto es súper importante para que funcione fuera del overflow:hidden: */
+      overflow: hidden; 
+    }
+
+    /* Le decimos a la tarjeta principal que corte los sobrantes del listón */
+    .gallery-card {
+      overflow: hidden; /* Agregamos esta línea para que el listón de descuento no se salga de los bordes redondeados */
     }
 
     /* =========================================
@@ -1549,8 +1556,8 @@ body::before {
 
       return [
         '<div class="gallery-card" data-id="' + a.id + '">',
+          ribbonDescuento, // <-- AHORA LO MOVEMOS AQUÍ, AFUERA DEL IMG-WRAP
           '<div class="card-img-wrap">',
-            ribbonDescuento, // <-- Aquí se inserta el listón si aplica
             '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
             ' onload="this.classList.add(\'loaded\')"',
             ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
