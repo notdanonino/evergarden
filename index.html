@@ -1468,36 +1468,42 @@ body::before {
       }
     }
 
-    function renderCards(items) {
+function renderCards(items) {
       var grid = document.getElementById('catalogGrid');
       if (!items || !items.length) {
         grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1">No hay arreglos disponibles por el momento. 🍂</div>';
         return;
       }
-    grid.innerHTML = items.map(function (a) {
-      var precio = fmtPrecio(a.precio);
-      var imgSrc = a.imagen_url || "";
+      
+      grid.innerHTML = items.map(function (a) {
+        var precio = fmtPrecio(a.precio);
+        var imgSrc = a.imagen_url || "";
 
-      return [
-        '<div class="flower-card" data-id="' + a.id + '">',
-          '<div class="card-img-wrap">',
-            '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
-            ' onload="this.classList.add(\'loaded\')"',
-            ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
-            precio ? '<div class="card-price-badge">' + precio + "</div>" : "",
-          "</div>",
-          '<div class="card-body">',
-            '<div class="card-name-display">' + a.nombre + "</div>",
-            '<button class="btn-pedido" type="button" data-open="' + a.id + '">',
-              WA_SVG + " Pedir por WhatsApp",
-            "</button>",
-          "</div>",
-        "</div>"
-      ].join("");
+        // LECTURA DEL DESCUENTO DESDE LA BASE DE DATOS
+        var tieneDescuento = a.en_descuento === true || a.en_descuento === 'true' || a.en_descuento === 1;
+        var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
+
+        return [
+          '<div class="flower-card" data-id="' + a.id + '">',
+            ribbonDescuento, // <-- LISTÓN DE DESCUENTO AGREGADO AQUÍ AFUERA
+            '<div class="card-img-wrap">',
+              '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
+              ' onload="this.classList.add(\'loaded\')"',
+              ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
+              precio ? '<div class="card-price-badge">' + precio + "</div>" : "",
+            "</div>",
+            '<div class="card-body">',
+              '<div class="card-name-display">' + a.nombre + "</div>",
+              '<button class="btn-pedido" type="button" data-open="' + a.id + '">',
+                WA_SVG + " Pedir por WhatsApp",
+              "</button>",
+            "</div>",
+          "</div>"
+        ].join("");
+      }).join("");
+
       activarRevelados();
-    }).join("");
-
-    activarRevelados();
+    }
 
     grid.onclick = function (e) {
       var card = e.target.closest(".flower-card");
@@ -1512,7 +1518,7 @@ body::before {
         openModal(producto);
       }
     };
-    }
+    
 
     async function cargarGaleria() {
       try {
@@ -1534,24 +1540,8 @@ body::before {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
         
-// AQUÍ PONES LOS NOMBRES (en minúsculas y cambiando la 'ñ' por 'n' o quitando acentos)
-        var arreglosConDescuento = [
-          "suenos en flor", 
-          "flor de cristal",
-          "esencia floral",
-          "vida amarilla"
-        ];
-        
-        // Función rápida para quitar acentos y cambiar 'ñ' por 'n'
-        function limpiarTexto(str) {
-          return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ñ/g, "n");
-        }
-
-        // Limpiamos el nombre de la base de datos (quitamos espacios, a minúsculas y sin acentos/ñ)
-        var nombreLimpio = a.nombre ? limpiarTexto(a.nombre.trim().toLowerCase()) : "";
-        
-        // Verifica si el arreglo actual está en la lista de descuentos
-        var tieneDescuento = arreglosConDescuento.includes(nombreLimpio);
+// Leemos directamente de la base de datos si tiene descuento (usamos 'true', 1 o true booleano por si acaso)
+        var tieneDescuento = a.en_descuento === true || a.en_descuento === 'true' || a.en_descuento === 1;
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
 
       return [
