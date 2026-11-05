@@ -128,7 +128,7 @@
     .sold-ribbon{position:absolute;top:14px;right:-8px;background:var(--muted);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 16px 4px 12px;border-radius:4px 0 0 4px;z-index:3;box-shadow:-2px 2px 6px rgba(0,0,0,.15)}
     .sold-ribbon::after{content:'';position:absolute;right:0;bottom:-6px;border-width:6px 8px 0 0;border-style:solid;border-color:var(--accent3) transparent transparent transparent}
 
-    /* Listón Descuento (Izquierda) - CORREGIDO Z-INDEX */
+    /* Listón Descuento (Izquierda) */
     .flower-card .discount-ribbon,
     .gallery-card .discount-ribbon {
       position: absolute !important;
@@ -241,7 +241,14 @@
       .hero-scroll::before { content: "explorar"; display: block; color: var(--accent); }
       .hero-scroll::after { content: "↓"; display: block; font-family: Georgia, serif; font-size: 2.45rem; line-height: 1; color: var(--accent); animation: mobileScrollArrow 1.8s ease-in-out infinite; margin-top: 14px; }
       .hero-scroll span { display: none !important; }
+      
+      /* Redimensionar iconos hero en móvil */
       .hero-leaf-cluster { right: -50px; bottom: 68px; width: 180px; height: 180px; opacity: 0.5; }
+      .hero-leaf-cluster .leaf-one { width: 70px !important; height: 70px !important; }
+      .hero-leaf-cluster .leaf-two { width: 55px !important; height: 55px !important; }
+      .hero-leaf-cluster .leaf-three { width: 45px !important; height: 45px !important; }
+      .hero-leaf-cluster .leaf-four { width: 40px !important; height: 40px !important; }
+      
       .autumn-glow-particles { opacity: 0.65; }
       .about-collage { min-height: 240px; margin-bottom: 42px; }
       .about-collage-paper { width: 82%; min-height: 165px; }
@@ -250,23 +257,25 @@
       .about-collage-leaf.leaf-b { right: -4%; }
       .about-collage-leaf.leaf-c { right: 4%; top: 7px; }
       .about-collage-leaf.leaf-d { left: 5%; }
+      
+      /* Redimensionar iconos contacto en móvil */
       .contact-botanical-corner { width: 120px; height: 120px; right: -23px; top: 18px; opacity: 0.3; }
-      .contact-botanical-corner .contact-leaf-one { font-size: 4rem; }
-      .contact-botanical-corner .contact-leaf-two { top: 39px; right: 55px; font-size: 2.9rem; }
-      .contact-botanical-corner .contact-leaf-three { top: 72px; font-size: 2.5rem; }
+      .contact-botanical-corner .contact-leaf-one { width: 55px !important; height: 55px !important; }
+      .contact-botanical-corner .contact-leaf-two { top: 39px; right: 55px; width: 45px !important; height: 45px !important; }
+      .contact-botanical-corner .contact-leaf-three { top: 72px; width: 40px !important; height: 40px !important; }
       #catalogo::before, #catalogo::after { display: none; }
     }
 
     /* =========================================
-       DECORACIONES NAVIDEÑAS
+       DECORACIONES NAVIDEÑAS CON TUS IMÁGENES
        ========================================= */
     .xmas-deco { position: absolute; display: block; pointer-events: none; user-select: none; line-height: 1; filter: drop-shadow(0 8px 10px rgba(44, 62, 80, 0.1)); }
     .hero-leaf-cluster { position: absolute; width: min(34vw, 380px); height: min(34vw, 380px); right: clamp(10px, 5vw, 78px); bottom: clamp(50px, 8vw, 110px); z-index: 0; pointer-events: none; opacity: 0.85; }
     .hero-leaf-cluster .leaf { position: absolute; display: block; line-height: 1; filter: drop-shadow(0 12px 16px rgba(29, 46, 25, 0.15)); }
-    .hero-leaf-cluster .leaf-one { right: 7%; bottom: 5%; font-size: clamp(4.5rem, 9vw, 9rem); transform: rotate(15deg); }
-    .hero-leaf-cluster .leaf-two { right: 34%; bottom: 25%; font-size: clamp(3.5rem, 7vw, 7rem); transform: rotate(-15deg); }
-    .hero-leaf-cluster .leaf-three { right: 2%; bottom: 39%; font-size: clamp(2.5rem, 5vw, 5.5rem); transform: rotate(30deg); }
-    .hero-leaf-cluster .leaf-four { right: 48%; bottom: 5%; font-size: clamp(2.2rem, 4vw, 4.5rem); transform: rotate(-30deg); }
+    .hero-leaf-cluster .leaf-one { right: 7%; bottom: 5%; transform: rotate(15deg); }
+    .hero-leaf-cluster .leaf-two { right: 34%; bottom: 25%; transform: rotate(-15deg); }
+    .hero-leaf-cluster .leaf-three { right: 2%; bottom: 39%; transform: rotate(30deg); }
+    .hero-leaf-cluster .leaf-four { right: 48%; bottom: 5%; transform: rotate(-30deg); }
     .hero > :not(.hero-leaf-cluster) { position: relative; z-index: 1; }
     
     #catalogo::before, #catalogo::after { position: absolute; pointer-events: none; z-index: -1; opacity: 0.2; font-size: clamp(3rem, 7vw, 7rem); filter: drop-shadow(0 10px 15px rgba(29, 46, 25, 0.09)); }
@@ -287,17 +296,17 @@
     .about-collage-text { position: relative; z-index: 2; max-width: 480px; padding: 30px 50px; text-align: center; color: var(--text); font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.7; font-style: italic; }
     .about-collage-text strong { color: var(--accent); font-style: normal; }
     .about-collage-leaf { position: absolute; z-index: 3; display: block; line-height: 1; filter: drop-shadow(0 10px 11px rgba(29, 46, 25, 0.1)); pointer-events: none; }
-    .about-collage-leaf.leaf-a { top: 8px; left: 7%; font-size: clamp(3.5rem, 6vw, 6rem); transform: rotate(-15deg); }
-    .about-collage-leaf.leaf-b { bottom: -8px; right: 7%; font-size: clamp(3.8rem, 6.5vw, 6.5rem); transform: rotate(15deg); }
-    .about-collage-leaf.leaf-c { top: 25px; right: 17%; font-size: clamp(2.5rem, 4vw, 4rem); transform: rotate(30deg); }
-    .about-collage-leaf.leaf-d { bottom: 6px; left: 18%; font-size: clamp(2.2rem, 4vw, 3.8rem); transform: rotate(-25deg); }
+    .about-collage-leaf.leaf-a { top: 8px; left: 7%; transform: rotate(-15deg); }
+    .about-collage-leaf.leaf-b { bottom: -8px; right: 7%; transform: rotate(15deg); }
+    .about-collage-leaf.leaf-c { top: 25px; right: 17%; transform: rotate(30deg); }
+    .about-collage-leaf.leaf-d { bottom: 6px; left: 18%; transform: rotate(-25deg); }
     
     #contacto { overflow: hidden; }
     .contact-botanical-corner { position: absolute; right: clamp(8px, 4vw, 65px); top: 36px; width: 175px; height: 175px; pointer-events: none; opacity: 0.6; }
-    .contact-botanical-corner span { position: absolute; display: block; line-height: 1; filter: drop-shadow(0 8px 10px rgba(29, 46, 25, 0.1)); }
-    .contact-botanical-corner .contact-leaf-one { top: 0; right: 0; font-size: 4.5rem; transform: rotate(15deg); }
-    .contact-botanical-corner .contact-leaf-two { top: 53px; right: 71px; font-size: 3.2rem; transform: rotate(-25deg); }
-    .contact-botanical-corner .contact-leaf-three { top: 95px; right: 7px; font-size: 2.8rem; transform: rotate(35deg); }
+    .contact-botanical-corner img { position: absolute; display: block; line-height: 1; filter: drop-shadow(0 8px 10px rgba(29, 46, 25, 0.1)); }
+    .contact-botanical-corner .contact-leaf-one { top: 0; right: 0; transform: rotate(15deg); }
+    .contact-botanical-corner .contact-leaf-two { top: 53px; right: 71px; transform: rotate(-25deg); }
+    .contact-botanical-corner .contact-leaf-three { top: 95px; right: 7px; transform: rotate(35deg); }
     
     @keyframes xmasBreeze { 0%, 100% { transform: rotate(var(--leaf-rotate, 0deg)) translateY(0); } 50% { transform: rotate(calc(var(--leaf-rotate, 0deg) + 3deg)) translateY(-5px); } }
     .hero-leaf-cluster .leaf { animation: xmasBreeze 7s ease-in-out infinite; transform-origin: center bottom; }
@@ -324,39 +333,51 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } .reveal-on-scroll { opacity: 1; transform: none; } }
 
     /* =========================================
-       EL SANTA CLAUS ASOMÁNDOSE (HOVER)
+       EL MUÑECO DE NIEVE Y PINGÜINO ASOMÁNDOSE (HOVER)
        ========================================= */
-    .flower-card .card-img-wrap::before,
-    .gallery-card .card-img-wrap::before {
-      content: "🎅";
+    
+    /* El Muñeco de nieve para el catálogo disponible */
+    .flower-card .card-img-wrap::before {
+      content: "";
+      background-image: url('https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center bottom;
       position: absolute;
-      bottom: -60px; /* Escondido debajo del borde inferior */
+      bottom: -80px; 
       right: 15px;
-      z-index: 5; /* Por encima de la imagen */
-      font-size: 3rem;
-      line-height: 1;
+      width: 60px; 
+      height: 60px; 
+      z-index: 5; 
       opacity: 0;
       transform: translateY(0) rotate(15deg);
       transition: opacity 0.3s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       pointer-events: none;
-      
-      /* Resetear estilos para que no use los de la hoja antigua */
-      top: auto;
-      left: auto;
-      width: auto;
-      height: auto;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      display: block;
+    }
+
+    /* El pingüino para la galería (vendidos) */
+    .gallery-card .card-img-wrap::before {
+      content: "";
+      background-image: url('https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/NicePng_santa-claus-sleigh-png_1734980.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      position: absolute;
+      bottom: -80px; 
+      right: 15px;
+      width: 60px; 
+      height: 60px; 
+      z-index: 5; 
+      opacity: 0;
+      transform: translateY(0) rotate(15deg);
+      transition: opacity 0.3s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
     }
     
     .flower-card:hover .card-img-wrap::before,
     .gallery-card:hover .card-img-wrap::before {
       opacity: 1;
       transform: translateY(-65px) rotate(0deg); /* Salta hacia arriba */
-      animation: none;
     }
 
     @media (hover: none) {
@@ -461,11 +482,12 @@
   </nav>
 
   <section class="hero" id="inicio">
+    <!-- IMÁGENES NAVIDEÑAS DEL HERO -->
     <div class="hero-leaf-cluster" aria-hidden="true">
-      <span class="leaf leaf-one">🎄</span>
-      <span class="leaf leaf-two">🎁</span>
-      <span class="leaf leaf-three">🔔</span>
-      <span class="leaf leaf-four">❄️</span>
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="leaf leaf-one" style="width: 100px; height: 100px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="leaf leaf-two" style="width: 80px; height: 80px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/luces-de-navidad.png" alt="" class="leaf leaf-three" style="width: 70px; height: 70px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/corona-de-navidad.png" alt="" class="leaf leaf-four" style="width: 60px; height: 60px;" />
     </div>
     
     <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="hero-logo-img" width="110" height="110" />
@@ -545,10 +567,11 @@
           <div class="about-collage reveal-on-scroll" aria-hidden="true">
       <div class="about-collage-paper"></div>
 
-      <span class="about-collage-leaf leaf-a">❄️</span>
-      <span class="about-collage-leaf leaf-b">🎄</span>
-      <span class="about-collage-leaf leaf-c">🎁</span>
-      <span class="about-collage-leaf leaf-d">✨</span>
+      <!-- IMÁGENES NAVIDEÑAS DEL COLLAGE QUIÉNES SOMOS -->
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="about-collage-leaf leaf-a" style="width: 65px; height: 65px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png" alt="" class="about-collage-leaf leaf-b" style="width: 60px; height: 60px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="about-collage-leaf leaf-c" style="width: 55px; height: 55px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/corona-de-navidad.png" alt="" class="about-collage-leaf leaf-d" style="width: 50px; height: 50px;" />
 
       <p class="about-collage-text">
         Cada arreglo está pensado para aportar
@@ -566,10 +589,11 @@
   </section>
 
   <section id="contacto">
+    <!-- IMÁGENES NAVIDEÑAS ESQUINA DE CONTACTO -->
     <div class="contact-botanical-corner" aria-hidden="true">
-      <span class="contact-leaf-one">❄️</span>
-      <span class="contact-leaf-two">✨</span>
-      <span class="contact-leaf-three">🔔</span>
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="contact-leaf-one" style="width: 80px; height: 80px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png" alt="" class="contact-leaf-two" style="width: 65px; height: 65px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="contact-leaf-three" style="width: 55px; height: 55px;" />
     </div>
     
     <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="contact-logo" />
