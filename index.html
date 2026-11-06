@@ -28,17 +28,7 @@
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    
-    /* EXTRA: Textura sutil añadida al fondo original */
-    body{
-      font-family:Georgia,serif;
-      background-color:var(--bg);
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
-      color:var(--text);
-      overflow-x:hidden;
-      line-height:1.6
-    }
-    
+    body{font-family:Georgia,serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
     img{display:block;max-width:100%;height:auto}
     a{text-decoration:none;color:inherit}
     button,input{font:inherit}
@@ -78,45 +68,53 @@
 
     .hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 80px;background:radial-gradient(circle at top,rgba(29,46,25,.08),transparent 42%),linear-gradient(160deg,rgba(255,255,255,.92) 0%,rgba(207,202,191,.4) 50%,rgba(255,255,255,.95) 100%);overflow:hidden}
     .hero::before{content:'';position:absolute;inset:-10% -10% auto -10%;height:50%;background:radial-gradient(circle at center,rgba(166,11,8,.05),transparent 60%);filter:blur(30px);pointer-events:none}
-    
-    /* EXTRA: Animación suave del logo al cargar */
-    .hero-logo-img{width:110px;height:auto;margin-bottom:18px;opacity:0;filter:drop-shadow(0 8px 20px rgba(29,46,25,.1)); animation: logoFadeIn 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;}
-    @keyframes logoFadeIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 0.92; transform: translateY(0) scale(1); } }
-    
+    .hero-logo-img{width:110px;height:auto;margin-bottom:18px;opacity:.92;filter:drop-shadow(0 8px 20px rgba(29,46,25,.1))}
     .hero-badge{display:inline-block;background:rgba(29,46,25,.05);color:var(--accent);border:1px solid rgba(166,11,8,.15);border-radius:999px;padding:6px 20px;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:28px}
     .hero h1{font-size:clamp(3.5rem,10vw,8rem);font-weight:700;line-height:1.05;letter-spacing:-.02em;color:var(--accent2)}
     .hero h1 span{color:var(--accent)}
     .hero-slogan{margin-top:20px;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;color:var(--muted);font-style:italic;letter-spacing:-.01em}
     .hero-sub{margin-top:10px;font-size:clamp(1rem,2vw,1.25rem);color:var(--muted);max-width:520px}
     .hero-cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
-    .btn-primary,.btn-secondary,.btn-custom-order,.btn-contact-wa,.gg-cta,.modal-wa,.btn-wa,.btn-pedido{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;transition:transform .15s,background .2s,border-color .2s,color .2s,box-shadow .2s;min-height:44px}
+    .btn-primary,.btn-secondary,.btn-custom-order,.btn-contact-wa,.gg-cta,.modal-wa,.btn-wa,.btn-pedido{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;transition:transform .15s,background .2s,border-color .2s,color .2s;min-height:44px}
     .btn-primary{background:var(--accent);color:#fff;border:none;padding:14px 32px}
-    .btn-primary:hover{background:var(--accent3);transform:translateY(-2px);box-shadow: 0 8px 20px rgba(166,11,8,0.25);}
+    .btn-primary:hover{background:var(--accent3);transform:translateY(-2px)}
     .btn-secondary{background:transparent;color:var(--text);border:1.5px solid var(--muted);padding:14px 32px}
     .btn-secondary:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-2px)}
     .hero-scroll{position:absolute;bottom:36px;font-size:.8rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;animation:bounce 2s infinite}
     @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
     section{position:relative;z-index:1}
-    /* EXTRA: Un poco más de espacio en blanco (padding-top y margin-bottom aumentados levemente) */
-    #catalogo{padding:120px 48px 100px;max-width:1300px;margin:0 auto}
+    #catalogo{padding:100px 48px 80px;max-width:1300px;margin:0 auto}
     .section-label{text-align:center;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);margin-bottom:12px}
     .section-title{text-align:center;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:var(--accent);margin-bottom:12px}
-    .section-desc{text-align:center;color:var(--muted);max-width:520px;margin:0 auto 44px;line-height:1.7;font-size:1rem}
+    .section-desc{text-align:center;color:var(--muted);max-width:520px;margin:0 auto 34px;line-height:1.7;font-size:1rem}
     
-    /* EXTRA: Estilos para el buscador y filtro (Controles) */
-    .controls-wrapper { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin: 0 auto 40px; max-width: 1300px; border-bottom: 1px solid var(--line); padding-bottom: 20px;}
+    /* =========================================
+       NUEVO: CONTROLES STICKY Y BUSCADOR CUSTOM
+       ========================================= */
+    .controls-wrapper { 
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; 
+      margin: 0 auto 40px; max-width: 1300px; border-bottom: 1px solid var(--line); 
+      padding: 15px 0;
+      position: sticky; top: 116px; z-index: 150; 
+      background: rgba(252,251,249, 0.95); backdrop-filter: blur(8px);
+    }
     .controls-search { flex: 1; min-width: 250px; max-width: 400px; position: relative;}
     .controls-search input { width: 100%; padding: 12px 16px 12px 40px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.6); outline: none; color: var(--text); transition: background 0.3s;}
     .controls-search input:focus { background: #fff; border-color: var(--accent); }
-    .controls-search::before { content: '🔍'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; pointer-events: none;}
+    .controls-search::before { 
+      content: ''; 
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%); 
+      width: 18px; height: 18px;
+      background-image: url('https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/buscar.png');
+      background-size: contain; background-repeat: no-repeat;
+      opacity: 0.5; pointer-events: none;
+    }
     .controls-sort select { padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.6); outline: none; color: var(--text); cursor: pointer; transition: background 0.3s;}
     .controls-sort select:focus { background: #fff; border-color: var(--accent); }
 
     .disclaimer-box{display:flex;align-items:flex-start;gap:14px;background:linear-gradient(90deg,#5E0001,#A60B08,#5E0001);background-size:300% auto;animation:shimmerBar 6s linear infinite;border:none;border-radius:14px;padding:18px 24px;max-width:760px;margin:0 auto 56px;text-align:left;box-shadow:var(--shadow)}
-    /* AJUSTE PARA ICONO DE ALERTA TIPO IMAGEN */
     .disclaimer-icon-img {width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px;}
-    
     .disclaimer-box p{font-size:.88rem;color:#ffffff;line-height:1.75}
     .disclaimer-box strong{color:#CFCABF;} 
 
@@ -132,10 +130,10 @@
     .skeleton-btn{height:38px;border-radius:999px;margin-top:4px}
     .catalog-loading{text-align:center;padding:60px;color:var(--accent);font-style:italic;font-size:1.1rem; grid-column:1/-1;}
 
-    /* TARJETAS - EXTRA: Efecto de profundidad sutil en hover añadido aquí */
-    .flower-card,.gallery-card{border-radius:20px;overflow:hidden;transition:transform .3s ease, box-shadow .3s ease;cursor:pointer;position:relative; border: 1px solid rgba(207, 202, 191, 0.4);}
+    /* TARJETAS */
+    .flower-card,.gallery-card{border-radius:20px;overflow:hidden;transition:transform .25s;cursor:pointer;position:relative}
     .flower-card::after,.gallery-card::after{content:'';position:absolute;inset:0;border-radius:20px;box-shadow:0 10px 30px rgba(29,46,25,.13);opacity:0;transition:opacity .25s;pointer-events:none}
-    .flower-card:hover,.gallery-card:hover{transform:translateY(-8px); box-shadow: 0 16px 40px rgba(29,46,25,0.12);}
+    .flower-card:hover,.gallery-card:hover{transform:translateY(-6px)}
     .flower-card:hover::after,.gallery-card:hover::after{opacity:1}
     .card-img-wrap{position:relative;width:100%;padding-top:130%;overflow:hidden;background:#ffffff}
     .card-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .4s,opacity .35s;opacity:0}
@@ -154,7 +152,7 @@
     .sold-ribbon{position:absolute;top:14px;right:-8px;background:var(--muted);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 16px 4px 12px;border-radius:4px 0 0 4px;z-index:3;box-shadow:-2px 2px 6px rgba(0,0,0,.15)}
     .sold-ribbon::after{content:'';position:absolute;right:0;bottom:-6px;border-width:6px 8px 0 0;border-style:solid;border-color:var(--accent3) transparent transparent transparent}
 
-    /* Listón Descuento (Izquierda) - CORREGIDO Z-INDEX */
+    /* Listón Descuento (Izquierda) */
     .flower-card .discount-ribbon,
     .gallery-card .discount-ribbon {
       position: absolute !important;
@@ -177,9 +175,9 @@
 
     .gallery-card, .flower-card { overflow: hidden; }
 
-    #personalizado{padding:0 48px 100px;max-width:1300px;margin:0 auto}
+    #personalizado{padding:0 48px 80px;max-width:1300px;margin:0 auto}
     .custom-order-inner{max-width:800px;margin:0 auto;text-align:center}
-    .custom-order-card{border:1px solid rgba(207, 202, 191, 0.5);border-radius:28px;padding:48px 48px 40px;box-shadow:0 4px 32px rgba(29,46,25,.05);position:relative;overflow:hidden;background:linear-gradient(135deg,#ffffff 0%,#fcfbf9 100%)}
+    .custom-order-card{border:1.5px solid rgba(29,46,25,.1);border-radius:28px;padding:48px 48px 40px;box-shadow:0 4px 32px rgba(29,46,25,.05);position:relative;overflow:hidden;background:linear-gradient(135deg,#ffffff 0%,#fcfbf9 100%)}
     .custom-order-card::before{content:'❄️';position:absolute;top:-10px;right:20px;font-size:5rem;opacity:.06;pointer-events:none}
     .custom-order-icon{font-size:3rem;margin-bottom:20px}
     .custom-order-desc{font-size:1rem;color:var(--text);line-height:1.85;margin-bottom:32px}
@@ -188,30 +186,20 @@
     .custom-feature{display:flex;align-items:center;gap:8px;background:rgba(29,46,25,.07);border:1px solid rgba(29,46,25,.15);border-radius:999px;padding:8px 18px;font-size:.85rem;color:var(--text)}
     .cf-icon{font-size:1rem}
     .btn-custom-order{background:#25D366;color:#fff;border:none;padding:16px 36px;font-size:1rem;box-shadow:0 4px 18px rgba(37,211,102,.3)}
-    .btn-custom-order:hover,.btn-contact-wa:hover,.gg-cta:hover,.modal-wa:hover{background:#1ebe5d;transform:translateY(-2px); box-shadow:0 8px 22px rgba(37,211,102,.4);}
+    .btn-custom-order:hover,.btn-contact-wa:hover,.gg-cta:hover,.modal-wa:hover{background:#1ebe5d;transform:translateY(-2px)}
 
-    #galeria{padding:80px 48px 100px;max-width:1300px;margin:0 auto}
+    #galeria{padding:80px 48px 80px;max-width:1300px;margin:0 auto}
     .galeria-intro-box{background:linear-gradient(135deg,rgba(207,202,191,.15) 0%,rgba(252,251,249,.8) 100%);border:1px solid rgba(118,88,76,.15);border-radius:20px;padding:32px 40px;text-align:center;max-width:720px;margin:0 auto 52px}
     .galeria-intro-box p{font-size:1rem;color:var(--text);line-height:1.8}
     .galeria-intro-box strong{color:var(--accent2)}
     .gg-cta{margin-top:18px;background:var(--accent);color:#fff;border:none;padding:10px 28px;font-size:.9rem}
     .gg-cta:hover{background:var(--accent3)}
 
-    /* EXTRA: Asimetría en "Quiénes Somos" para pantallas grandes */
-    #quienes{padding:100px 48px 90px;background:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(207,202,191,.3) 100%); border-top: 1px solid var(--line);}
+    #quienes{padding:90px 48px 80px;background:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(207,202,191,.3) 100%)}
     .quienes-inner{max-width:1200px;margin:0 auto}
     .about-intro{text-align:center;font-size:1rem;color:var(--text);line-height:1.85;max-width:680px;margin:0 auto 44px}
-    
-    @media (min-width: 900px) {
-      .quienes-asym-wrapper { display: flex; align-items: center; gap: 60px; margin-bottom: 60px; }
-      .quienes-asym-text { flex: 1; text-align: left; }
-      .quienes-asym-text .section-label, .quienes-asym-text .section-title, .quienes-asym-text .about-intro { text-align: left; margin-left: 0; }
-      .quienes-asym-text .about-intro { margin-bottom: 0; }
-      .about-collage { flex: 1; margin-bottom: 0 !important; }
-    }
-    
     .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    .about-card{border-radius:18px;padding:28px 22px;text-align:center; background:#fff; box-shadow:var(--shadow); border: 1px solid rgba(207,202,191,0.3);}
+    .about-card{border-radius:18px;padding:28px 22px;text-align:center; background:#fff; box-shadow:var(--shadow)}
     .about-card .icon{font-size:2rem;margin-bottom:12px}
     .about-card h3{font-size:1rem;font-weight:700;color:var(--accent2);margin-bottom:8px}
     .about-card p{font-size:.87rem;color:var(--muted);line-height:1.65}
@@ -223,22 +211,12 @@
     .contact-subtitle{font-size:.95rem;color:var(--muted);max-width:460px;margin:0 auto 44px;line-height:1.7}
     .contact-cards{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;max-width:820px;margin:0 auto 44px}
     .contact-card{border:1px solid rgba(29,46,25,.15);border-radius:20px;padding:28px 28px 24px;min-width:200px;flex:1;max-width:240px; background:#fff}
-    /* AJUSTE PARA LOS ICONOS TIPO IMAGEN EN CONTACTO */
     .contact-card .cc-icon-img {width: 28px; height: 28px; margin-bottom: 12px; display: inline-block;}
     .contact-card h4{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:6px}
     .contact-card p{font-size:.9rem;color:var(--text);line-height:1.6}
     .btn-contact-wa{background:#25D366;color:#fff;padding:16px 40px;font-size:1rem;box-shadow:0 4px 18px rgba(37,211,102,.28);margin-bottom:52px;border:none}
     .contact-footer-line{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:28px;max-width:600px;margin:0 auto}
     .contact-footer-line strong{color:var(--accent)}
-
-    /* EXTRA: Botones Flotantes Permanentes */
-    .floating-widgets { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 12px; z-index: 400; }
-    .btn-up { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--accent2); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(15px); transition: all 0.3s; }
-    .btn-up.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-    .btn-up:hover { background: var(--bg2); }
-    .btn-float-wa { width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(37,211,102,.3); transition: transform 0.3s; }
-    .btn-float-wa img { width: 28px; height: 28px; filter: brightness(0) invert(1); }
-    .btn-float-wa:hover { transform: scale(1.08); background: #1ebe5d; }
 
     .modal-overlay{display:none;position:fixed;inset:0;background:rgba(29,46,25,.75);z-index:500;align-items:center;justify-content:center;padding:20px}
     .modal-overlay.open{display:flex}
@@ -252,13 +230,22 @@
     .modal-name{font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:10px}
     .modal-price{font-size:1.3rem;font-weight:700;color:var(--accent);margin-bottom:16px}
     .modal-desc{font-size:.95rem;color:var(--muted);line-height:1.7;margin-bottom:14px}
-    /* CLASE PARA ENGLOBAR ALERTA E IMAGEN EN MODAL */
     .modal-note{display:flex; align-items:center; gap:6px; font-size:.78rem;color:var(--muted);font-style:italic;margin-bottom:20px}
     .modal-note-img{width:16px; height:16px; flex-shrink:0;}
     .modal-divider{border:none;border-top:1px solid var(--line);margin:4px 0 24px}
     .modal-wa{background:#25D366;color:#fff;border:none;padding:14px 24px;font-size:1rem;margin-top:auto}
     .modal-wa.pedido{background:var(--accent2)}
     .modal-wa.pedido:hover{background:var(--accent3)}
+
+    /* WIDGETS FLOTANTES */
+    .floating-widgets { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 14px; z-index: 400; }
+    .btn-up { width: 45px; height: 45px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--accent2); font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1); }
+    .btn-up.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .btn-up:hover { background: var(--bg2); transform: translateY(-3px) !important;}
+    .btn-float-wa { width: 55px; height: 55px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(37,211,102,.3); transition: transform 0.3s; animation: pulseWa 2s infinite; }
+    .btn-float-wa img { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+    .btn-float-wa:hover { transform: scale(1.1); animation: none; background: #1ebe5d; }
+    @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.6); } 70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
 
     @media (max-width:700px){
       .announcement-bar{font-size:.72rem;padding:8px 36px 8px 12px}
@@ -270,8 +257,8 @@
       .nav-links a:last-child{border-bottom:none}
       #catalogo,#galeria,#quienes{padding:70px 16px 60px}
       #personalizado{padding:0 16px 60px}
+      .controls-wrapper { top: 96px; } /* Ajuste de altura sticky en móvil */
       .catalog-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
-      .controls-wrapper { flex-direction: column; align-items: stretch; }
       .modal{flex-direction:column}
       .modal-img{width:100%;max-height:55vh;object-fit:contain;border-radius:24px 24px 0 0;background:#ffffff}
       .modal-info{padding:24px 20px}
@@ -281,6 +268,7 @@
       .custom-order-card{padding:32px 20px}
       .contact-cards{gap:14px}
       .contact-card{max-width:100%;min-width:unset}
+      .floating-widgets { bottom: 20px; right: 20px; }
       .hero { padding: 150px 18px 165px; }
       .hero-badge { width: min(100%, 360px); max-width: calc(100vw - 32px); padding: 9px 14px; font-size: 0.68rem; line-height: 1.35; letter-spacing: 0.105em; text-align: center; white-space: normal; }
       .hero-badge span { display: inline; }
@@ -291,7 +279,6 @@
       .hero-scroll::after { content: "↓"; display: block; font-family: Georgia, serif; font-size: 2.45rem; line-height: 1; color: var(--accent); animation: mobileScrollArrow 1.8s ease-in-out infinite; margin-top: 14px; }
       .hero-scroll span { display: none !important; }
       
-      /* Redimensionar iconos hero en móvil */
       .hero-leaf-cluster { right: -50px; bottom: 68px; width: 180px; height: 180px; opacity: 0.5; }
       .hero-leaf-cluster .leaf-one { width: 70px !important; height: 70px !important; }
       .hero-leaf-cluster .leaf-two { width: 55px !important; height: 55px !important; }
@@ -307,7 +294,6 @@
       .about-collage-leaf.leaf-c { right: 4%; top: 7px; }
       .about-collage-leaf.leaf-d { left: 5%; }
       
-      /* Redimensionar iconos contacto en móvil */
       .contact-botanical-corner { width: 120px; height: 120px; right: -23px; top: 18px; opacity: 0.3; }
       .contact-botanical-corner .contact-leaf-one { width: 55px !important; height: 55px !important; }
       .contact-botanical-corner .contact-leaf-two { top: 39px; right: 55px; width: 45px !important; height: 45px !important; }
@@ -319,7 +305,7 @@
        DECORACIONES NAVIDEÑAS CON TUS IMÁGENES
        ========================================= */
     .xmas-deco { position: absolute; display: block; pointer-events: none; user-select: none; line-height: 1; filter: drop-shadow(0 8px 10px rgba(44, 62, 80, 0.1)); }
-    .hero-leaf-cluster { position: absolute; width: min(34vw, 380px); height: min(34vw, 380px); right: clamp(10px, 5vw, 78px); bottom: clamp(50px, 8vw, 110px); z-index: 0; pointer-events: none; opacity: 0.85; transition: transform 0.1s linear; }
+    .hero-leaf-cluster { position: absolute; width: min(34vw, 380px); height: min(34vw, 380px); right: clamp(10px, 5vw, 78px); bottom: clamp(50px, 8vw, 110px); z-index: 0; pointer-events: none; opacity: 0.85; }
     .hero-leaf-cluster .leaf { position: absolute; display: block; line-height: 1; filter: drop-shadow(0 12px 16px rgba(29, 46, 25, 0.15)); }
     .hero-leaf-cluster .leaf-one { right: 7%; bottom: 5%; transform: rotate(15deg); }
     .hero-leaf-cluster .leaf-two { right: 34%; bottom: 25%; transform: rotate(-15deg); }
@@ -331,7 +317,6 @@
     #catalogo::before { content: "❄️"; top: 80px; left: max(8px, 2vw); transform: rotate(-15deg); }
     #catalogo::after { content: "🎁"; bottom: 42px; right: max(8px, 2vw); transform: rotate(15deg); }
     
-    /* ESTRELLITAS EN LAS TARJETAS */
     .flower-card .card-img-wrap::after, .gallery-card .card-img-wrap::after { content: "✨"; position: absolute; top: 12px; left: 13px; z-index: 3; font-size: 1.1rem; opacity: 0.6; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); pointer-events: none; }
     .flower-card:nth-child(3n + 1) .card-img-wrap::after { content: "❄️"; font-size: 1.25rem; opacity: 0.4; }
     .flower-card:nth-child(3n + 2) .card-img-wrap::after { content: "🎄"; font-size: 1.1rem; opacity: 0.5; }
@@ -372,7 +357,7 @@
     @keyframes warmGlow { 0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(166, 11, 8, 0); } 50% { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(166, 11, 8, 0.15); } }
     .hero-badge { animation: warmGlow 4.8s ease-in-out infinite; }
     .flower-card > *, .gallery-card > * { position: relative; z-index: 1; }
-    .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 700ms ease, transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-on-scroll { opacity: 1; transform: translateY(0); transition: opacity 700ms ease, transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
     .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
     .reveal-on-scroll:nth-child(2) { transition-delay: 80ms; }
     .reveal-on-scroll:nth-child(3) { transition-delay: 160ms; }
@@ -384,80 +369,36 @@
     /* =========================================
        EL MUÑECO DE NIEVE Y PINGÜINO ASOMÁNDOSE (HOVER)
        ========================================= */
-    
-    /* El Muñeco de nieve para el catálogo disponible */
     .flower-card .card-img-wrap::before {
       content: "";
       background-image: url('https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center bottom;
-      position: absolute;
-      bottom: -80px; 
-      right: 15px;
-      width: 60px; 
-      height: 60px; 
-      z-index: 5; 
-      opacity: 0;
-      transform: translateY(0) rotate(15deg);
-      transition: opacity 0.3s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background-size: contain; background-repeat: no-repeat; background-position: center bottom;
+      position: absolute; bottom: -80px; right: 15px; width: 60px; height: 60px; z-index: 5; opacity: 0;
+      transform: translateY(0) rotate(15deg); transition: opacity 0.3s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       pointer-events: none;
     }
-
-    /* El pingüino para la galería (vendidos) */
     .gallery-card .card-img-wrap::before {
       content: "";
       background-image: url('https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/NicePng_santa-claus-sleigh-png_1734980.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center bottom;
-      position: absolute;
-      bottom: -80px; 
-      right: 15px;
-      width: 60px; 
-      height: 60px; 
-      z-index: 5; 
-      opacity: 0;
-      transform: translateY(0) rotate(15deg);
-      transition: opacity 0.3s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background-size: contain; background-repeat: no-repeat; background-position: center bottom;
+      position: absolute; bottom: -80px; right: 15px; width: 60px; height: 60px; z-index: 5; opacity: 0;
+      transform: translateY(0) rotate(15deg); transition: opacity 0.3s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       pointer-events: none;
     }
     
-    .flower-card:hover .card-img-wrap::before,
-    .gallery-card:hover .card-img-wrap::before {
-      opacity: 1;
-      transform: translateY(-65px) rotate(0deg); /* Salta hacia arriba */
+    .flower-card:hover .card-img-wrap::before, .gallery-card:hover .card-img-wrap::before {
+      opacity: 1; transform: translateY(-65px) rotate(0deg);
     }
-
-    @media (hover: none) {
-      .flower-card .card-img-wrap::before,
-      .gallery-card .card-img-wrap::before {
-        display: none;
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .flower-card:hover .card-img-wrap::before,
-      .gallery-card:hover .card-img-wrap::before {
-        transition: none;
-      }
-    }
+    @media (hover: none) { .flower-card .card-img-wrap::before, .gallery-card .card-img-wrap::before { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .flower-card:hover .card-img-wrap::before, .gallery-card:hover .card-img-wrap::before { transition: none; } }
 
     /* =========================================
        TEXTURA NAVIDEÑA NEVADA SUTIL
        ========================================= */
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.15;
-      background-image:
-        radial-gradient(rgba(207, 202, 191, 0.4) 0.55px, transparent 0.8px),
-        radial-gradient(rgba(255, 255, 255, 0.8) 0.55px, transparent 0.8px);
-      background-position: 0 0, 4px 4px;
-      background-size: 8px 8px, 8px 8px;
-      mix-blend-mode: multiply;
+      content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.15;
+      background-image: radial-gradient(rgba(207, 202, 191, 0.4) 0.55px, transparent 0.8px), radial-gradient(rgba(255, 255, 255, 0.8) 0.55px, transparent 0.8px);
+      background-position: 0 0, 4px 4px; background-size: 8px 8px, 8px 8px; mix-blend-mode: multiply;
     }
     @media (prefers-reduced-motion: reduce) { body::before { opacity: 0.1; } }
 
@@ -540,13 +481,13 @@
     </div>
     
     <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="hero-logo-img" width="110" height="110" />
-    <div class="hero-badge reveal-on-scroll">
+    <div class="hero-badge">
       ✦ Arreglos florales artificiales ✦
     </div>    
-    <h1 class="reveal-on-scroll" style="transition-delay: 100ms;">Ever<br /><span>Garden</span></h1>
-    <p class="hero-slogan reveal-on-scroll" style="transition-delay: 200ms;">La magia que no se marchita.</p>
-    <p class="hero-sub reveal-on-scroll" style="transition-delay: 300ms;">Arreglos elegantes para decorar tu hogar, regalar con amor, o para tus invitados en tu evento (Navidad, Baby shower, despedidas y más).</p>
-    <div class="hero-cta reveal-on-scroll" style="transition-delay: 400ms;">
+    <h1>Ever<br /><span>Garden</span></h1>
+    <p class="hero-slogan">La magia que no se marchita.</p>
+    <p class="hero-sub">Arreglos elegantes para decorar tu hogar, regalar con amor, o para tus invitados en tu evento (Navidad, Baby shower, despedidas y más).</p>
+    <div class="hero-cta">
       <a href="#catalogo" class="btn-primary">Ver catálogo →</a>
       <a href="#quienes" class="btn-secondary">Quiénes somos</a>
     </div>
@@ -554,11 +495,11 @@
   </section>
 
   <section id="catalogo">
-    <p class="section-label reveal-on-scroll">✦ Disponibles ahora ✦</p>
-    <h2 class="section-title reveal-on-scroll">Catálogo actual</h2>
-    <p class="section-desc reveal-on-scroll">Toca cualquier arreglo para ver los detalles y pedirlo por WhatsApp.</p>
+    <p class="section-label">✦ Disponibles ahora ✦</p>
+    <h2 class="section-title">Catálogo actual</h2>
+    <p class="section-desc">Toca cualquier arreglo para ver los detalles y pedirlo por WhatsApp.</p>
     
-    <!-- EXTRA: CONTROLES BUSCADOR Y ORDENAMIENTO -->
+    <!-- CONTROLES BUSCADOR Y ORDENAMIENTO (STICKY) -->
     <div class="controls-wrapper reveal-on-scroll">
       <div class="controls-search">
         <input type="text" id="searchCat" placeholder="Buscar arreglo por nombre..." />
@@ -596,8 +537,8 @@
 
   <section id="personalizado">
     <div class="custom-order-inner">
-      <p class="section-label reveal-on-scroll">✦ Hecho para ti ✦</p>
-      <h2 class="section-title reveal-on-scroll">¿No encontraste lo que buscas?</h2>
+      <p class="section-label">✦ Hecho para ti ✦</p>
+      <h2 class="section-title">¿No encontraste lo que buscas?</h2>
       <div class="custom-order-card reveal-on-scroll">
         <div class="custom-order-icon">🎨</div>
         <p class="custom-order-desc">¿Tienes algo especial en mente pero no lo ves en el catálogo? <strong>¡No hay problema!</strong><br /><br />Cuéntanos tu idea — colores festivos, flores, estilo, ocasión — y nosotros creamos un arreglo <strong>completamente personalizado</strong> para ti. Cada pieza es artesanal y única, diseñada con amor para que encaje perfectamente con tu visión. <br /><br />Los pedidos personalizados requieren un <strong>anticipo mínimo del 50%</strong>. En caso de no recibir el pago correspondiente dentro de las siguientes <strong>24 horas</strong>, el procesamiento de la solicitud <strong>no podrá ser realizado</strong>.</p>
@@ -616,8 +557,8 @@
   </section>
 
   <section id="galeria">
-    <p class="section-label reveal-on-scroll">✦ Nuestra galería ✦</p>
-    <h2 class="section-title reveal-on-scroll">Inspírate con estos diseños</h2>
+    <p class="section-label">✦ Nuestra galería ✦</p>
+    <h2 class="section-title">Inspírate con estos diseños</h2>
     <div class="galeria-intro-box reveal-on-scroll">
       <p>Aquí encontrarás todos los arreglos que han encontrado un hogar. 🏡<br /><br />¿Te enamoraste de alguno? Aunque ya fue vendido, podemos preparar algo <strong>muy similar bajo pedido</strong>, adaptado a tus gustos y necesidades. Cada pieza es artesanal, así que el resultado será único — igual de especial.</p>
       <a href="https://wa.me/5218134000720?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20un%20arreglo%20personalizado%20%F0%9F%8E%84" target="_blank" rel="noopener noreferrer" class="gg-cta">
@@ -625,8 +566,8 @@
         Pedir un arreglo personalizado
       </a>
     </div>
-
-    <!-- EXTRA: CONTROLES BUSCADOR Y ORDENAMIENTO -->
+    
+    <!-- CONTROLES BUSCADOR Y ORDENAMIENTO (STICKY) -->
     <div class="controls-wrapper reveal-on-scroll">
       <div class="controls-search">
         <input type="text" id="searchGal" placeholder="Buscar en galería..." />
@@ -649,35 +590,28 @@
 
   <section id="quienes">
     <div class="quienes-inner">
-      <!-- EXTRA: ASIMETRÍA EN QUIÉNES SOMOS -->
-      <div class="quienes-asym-wrapper reveal-on-scroll">
-        <div class="quienes-asym-text">
-          <p class="section-label">✦ Nuestra historia ✦</p>
-          <h2 class="section-title">Quiénes Somos</h2>
-          <p class="about-intro"><strong>EverGarden</strong> nació de una idea simple pero poderosa: hacer de cada espacio algo más bonito, más cálido y más propio. Creemos que la decoración no debería ser complicada, y que un arreglo —aunque artificial— tiene el poder de transformar un rincón, una mesa o un hogar entero.<br /><br />Cada pieza de nuestro catálogo es <strong>única e irrepetible</strong> y está sujeta a disponibilidad. Pero si tienes algo en mente, con gusto creamos un arreglo <strong>personalizado a tu gusto</strong>. Todos los pedidos se realizan directamente por WhatsApp.</p>
-        </div>
-        
-        <div class="about-collage reveal-on-scroll" aria-hidden="true">
-          <div class="about-collage-paper"></div>
+      <p class="section-label">✦ Nuestra historia ✦</p>
+      <h2 class="section-title">Quiénes Somos</h2>
+          <div class="about-collage reveal-on-scroll" aria-hidden="true">
+      <div class="about-collage-paper"></div>
 
-          <!-- IMÁGENES NAVIDEÑAS DEL COLLAGE QUIÉNES SOMOS -->
-          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="about-collage-leaf leaf-a" style="width: 65px; height: 65px;" />
-          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png" alt="" class="about-collage-leaf leaf-b" style="width: 60px; height: 60px;" />
-          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="about-collage-leaf leaf-c" style="width: 55px; height: 55px;" />
-          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/corona-de-navidad.png" alt="" class="about-collage-leaf leaf-d" style="width: 50px; height: 50px;" />
+      <!-- IMÁGENES NAVIDEÑAS DEL COLLAGE QUIÉNES SOMOS -->
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="about-collage-leaf leaf-a" style="width: 65px; height: 65px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png" alt="" class="about-collage-leaf leaf-b" style="width: 60px; height: 60px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="about-collage-leaf leaf-c" style="width: 55px; height: 55px;" />
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/corona-de-navidad.png" alt="" class="about-collage-leaf leaf-d" style="width: 50px; height: 50px;" />
 
-          <p class="about-collage-text">
-            Cada arreglo está pensado para aportar
-            <strong>magia, belleza y un detalle especial</strong>
-            a los espacios que más quieres en esta temporada.
-          </p>
-        </div>
-      </div>
-
+      <p class="about-collage-text">
+        Cada arreglo está pensado para aportar
+        <strong>magia, belleza y un detalle especial</strong>
+        a los espacios que más quieres en esta temporada.
+      </p>
+    </div>
+      <p class="about-intro"><strong>EverGarden</strong> nació de una idea simple pero poderosa: hacer de cada espacio algo más bonito, más cálido y más propio. Creemos que la decoración no debería ser complicada, y que un arreglo —aunque artificial— tiene el poder de transformar un rincón, una mesa o un hogar entero.<br /><br />Cada pieza de nuestro catálogo es <strong>única e irrepetible</strong> y está sujeta a disponibilidad. Pero si tienes algo en mente, con gusto creamos un arreglo <strong>personalizado a tu gusto</strong>. Todos los pedidos se realizan directamente por WhatsApp.</p>
       <div class="about-grid">
-        <div class="about-card reveal-on-scroll"><div class="icon">🌷</div><h3>Piezas únicas</h3><p>Cada arreglo es irrepetible — no producimos en serie. Cada pieza tiene su propia personalidad y estilo.</p></div>
-        <div class="about-card reveal-on-scroll"><div class="icon">🎄</div><h3>Estilo Navideño</h3><p>La paleta festiva abraza tonos carmín, verdes pino, blancos nevados y dorados para una sensación mágica y acogedora.</p></div>
-        <div class="about-card reveal-on-scroll"><div class="icon">💬</div><h3>A tu gusto</h3><p>¿No encontraste lo que buscas? Cuéntanos tu idea y hacemos un arreglo personalizado para ti.</p></div>
+        <div class="about-card"><div class="icon">🌷</div><h3>Piezas únicas</h3><p>Cada arreglo es irrepetible — no producimos en serie. Cada pieza tiene su propia personalidad y estilo.</p></div>
+        <div class="about-card"><div class="icon">🎄</div><h3>Estilo Navideño</h3><p>La paleta festiva abraza tonos carmín, verdes pino, blancos nevados y dorados para una sensación mágica y acogedora.</p></div>
+        <div class="about-card"><div class="icon">💬</div><h3>A tu gusto</h3><p>¿No encontraste lo que buscas? Cuéntanos tu idea y hacemos un arreglo personalizado para ti.</p></div>
       </div>
     </div>
   </section>
@@ -690,10 +624,10 @@
       <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="contact-leaf-three" style="width: 55px; height: 55px;" />
     </div>
     
-    <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="contact-logo reveal-on-scroll" />
-    <p class="contact-tagline reveal-on-scroll">✦ Estamos aquí para ti ✦</p>
-    <h2 class="contact-title reveal-on-scroll">Contáctanos</h2>
-    <p class="contact-subtitle reveal-on-scroll">¿Tienes dudas, quieres un arreglo personalizado o simplemente quieres decir hola? Escríbenos, respondemos rápido. 🎄</p>
+    <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="contact-logo" />
+    <p class="contact-tagline">✦ Estamos aquí para ti ✦</p>
+    <h2 class="contact-title">Contáctanos</h2>
+    <p class="contact-subtitle">¿Tienes dudas, quieres un arreglo personalizado o simplemente quieres decir hola? Escríbenos, respondemos rápido. 🎄</p>
     
     <!-- TARJETAS DE CONTACTO CON NUEVOS ICONOS -->
     <div class="contact-cards reveal-on-scroll">
@@ -711,18 +645,18 @@
       </div>
     </div>
     
-    <a href="https://wa.me/5218134000720?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20EverGarden%20%F0%9F%8E%84" target="_blank" rel="noopener noreferrer" class="btn-contact-wa reveal-on-scroll">
-      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/mensaje.png" alt="Mensaje" style="width:20px; height:20px; filter: brightness(0) invert(1);" />
+    <a href="https://wa.me/5218134000720?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20EverGarden%20%F0%9F%8E%84" target="_blank" rel="noopener noreferrer" class="btn-contact-wa">
+      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/mensaje.png" alt="Mensaje" style="width:20px; height:20px;" />
       Escríbenos por WhatsApp
     </a>
     
-    <div style="text-align: center; max-width: 820px; margin: 0 auto 52px auto;" class="reveal-on-scroll">
+    <div style="text-align: center; max-width: 820px; margin: 0 auto 52px auto;">
       <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/Tarjeta.jpeg" alt="Arreglos personalizados para eventos EverGarden" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 10px 30px rgba(29,46,25,.12);" />
     </div>
-    <div class="contact-footer-line reveal-on-scroll">Hecho con 💕 por <strong>EverGarden</strong> · Guadalupe, Nuevo León, México<br /><span style="font-size:0.76rem;">© 2025 EverGarden · La magia que no se marchita.</span></div>
+    <div class="contact-footer-line">Hecho con 💕 por <strong>EverGarden</strong> · Guadalupe, Nuevo León, México<br /><span style="font-size:0.76rem;">© 2025 EverGarden · La magia que no se marchita.</span></div>
   </section>
 
-  <!-- EXTRA: BOTONES FLOTANTES (VOLVER ARRIBA Y WHATSAPP) -->
+  <!-- WIDGETS FLOTANTES -->
   <div class="floating-widgets">
     <button id="btnVolverArriba" class="btn-up" aria-label="Volver arriba">↑</button>
     <a href="https://wa.me/5218134000720" target="_blank" rel="noopener noreferrer" class="btn-float-wa" aria-label="WhatsApp">
@@ -799,20 +733,20 @@
     const WA_NUMBER = '5218134000720';
     const MSJ_ICON = '<img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/mensaje.png" alt="Mensaje" style="width:16px; height:16px; margin-right:6px; filter: brightness(0) invert(1);" />';
 
-    // VARIABLES PARA BÚSQUEDA Y ORDENAMIENTO
-    let allCatalogItems = [];
-    let allGalleryItems = [];
+    // Variables globales para los datos originales
+    let todosLosProductos = [];
+    let todosLosVendidos = [];
 
     document.getElementById('barCloseBtn').addEventListener('click', function () {
       document.getElementById('announcementBar').classList.add('hidden');
       document.getElementById('mainNav').classList.add('bar-gone');
     });
 
-    // LÓGICA DEL POPUP NAVIDEÑO DE INICIO
+    // POPUP NAVIDEÑO DE INICIO
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         document.getElementById('xmasPopupOverlay').classList.add('open');
-      }, 1200); 
+      }, 1200);
 
       const closeXmasPopup = () => {
         document.getElementById('xmasPopupOverlay').classList.remove('open');
@@ -825,25 +759,13 @@
       });
     });
 
-    // EXTRA: PARALLAX EN HERO & BOTÓN VOLVER ARRIBA
+    // BOTÓN VOLVER ARRIBA
     const btnArriba = document.getElementById('btnVolverArriba');
-    const heroLogo = document.querySelector('.hero-logo-img');
-    const heroLeaves = document.querySelector('.hero-leaf-cluster');
-    
     window.addEventListener('scroll', () => {
       const sy = window.scrollY;
-      
-      // Mostrar/Ocultar botón de arriba
       if (sy > 500) btnArriba.classList.add('visible');
       else btnArriba.classList.remove('visible');
-
-      // Efecto Parallax en el Hero (solo pantallas no-móviles para rendimiento)
-      if(window.innerWidth > 768 && sy < 800) {
-        if(heroLogo) heroLogo.style.transform = `translateY(${sy * 0.15}px)`;
-        if(heroLeaves) heroLeaves.style.transform = `translateY(${sy * 0.25}px)`;
-      }
     });
-
     btnArriba.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
     // COPOS DE NIEVE ANIMADOS
@@ -877,40 +799,32 @@
       return 'https://wa.me/' + WA_NUMBER + '?text=' + msg;
     }
 
+    // =========================================
+    // LÓGICA DE CATÁLOGO (BÚSQUEDA Y ORDEN)
+    // =========================================
     async function cargarProductos() {
       try {
         const res = await fetch("/api/productos");
-
-        if (!res.ok) {
-          throw new Error("HTTP " + res.status);
-        }
-
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        
         const items = await res.json();
-        allCatalogItems = items.filter(function (item) {
-          return (
-            item.vendido !== true &&
-            item.vendido !== 1 &&
-            item.estado !== "vendido" &&
-            item.status !== "sold"
-          );
+        todosLosProductos = items.filter(function (item) {
+          return (item.vendido !== true && item.vendido !== 1 && item.estado !== "vendido" && item.status !== "sold");
         });
 
         actualizarCatalogo();
       } catch (e) {
         console.error("Error al cargar productos:", e);
         document.getElementById("catalogGrid").innerHTML =
-          '<div class="catalog-loading" style="grid-column:1/-1">' +
-          "Error al cargar productos. ❄️" +
-          "</div>";
+          '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar productos. ❄️</div>';
       }
     }
 
-    // EXTRA: FUNCIÓN DE FILTRADO Y ORDENAMIENTO (CATÁLOGO)
     function actualizarCatalogo() {
       const search = document.getElementById('searchCat').value.toLowerCase();
       const sort = document.getElementById('sortCat').value;
       
-      let filtrados = [...allCatalogItems];
+      let filtrados = [...todosLosProductos];
       
       if(search) {
         filtrados = filtrados.filter(a => a.nombre.toLowerCase().includes(search) || (a.descripcion && a.descripcion.toLowerCase().includes(search)));
@@ -939,8 +853,8 @@
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
 
         return [
-          '<div class="flower-card reveal-on-scroll" data-id="' + a.id + '">',
-            ribbonDescuento, 
+          '<div class="flower-card" data-id="' + a.id + '">',
+            ribbonDescuento,
             '<div class="card-img-wrap">',
               '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
               ' onload="this.classList.add(\'loaded\')"',
@@ -957,39 +871,35 @@
         ].join("");
       }).join("");
 
-      setTimeout(activarRevelados, 50); // Reactivar observador de animaciones
+      activarRevelados();
 
       grid.onclick = function (e) {
         var card = e.target.closest(".flower-card");
         if (!card) return;
-
-        var producto = items.find(function (item) {
-          return String(item.id) === card.dataset.id;
-        });
-
-        if (producto) {
-          openModal(producto);
-        }
+        var producto = items.find(item => String(item.id) === card.dataset.id);
+        if (producto) openModal(producto);
       };
     }
-    
+
+    // =========================================
+    // LÓGICA DE GALERÍA (BÚSQUEDA Y ORDEN)
+    // =========================================
     async function cargarGaleria() {
       try {
         const res = await fetch('/api/galeria');
         if (!res.ok) throw new Error('HTTP ' + res.status);
-        allGalleryItems = await res.json();
+        todosLosVendidos = await res.json();
         actualizarGaleria();
       } catch (e) {
         document.getElementById('galeriaGrid').innerHTML = '<div class="catalog-loading" style="grid-column:1/-1">Error al cargar la galería. ❄️</div>';
       }
     }
 
-    // EXTRA: FUNCIÓN DE FILTRADO Y ORDENAMIENTO (GALERÍA)
     function actualizarGaleria() {
       const search = document.getElementById('searchGal').value.toLowerCase();
       const sort = document.getElementById('sortGal').value;
       
-      let filtrados = [...allGalleryItems];
+      let filtrados = [...todosLosVendidos];
       
       if(search) {
         filtrados = filtrados.filter(a => a.nombre.toLowerCase().includes(search) || (a.descripcion && a.descripcion.toLowerCase().includes(search)));
@@ -1000,16 +910,17 @@
 
       renderGaleria(filtrados);
     }
-    
+
     document.getElementById('searchGal').addEventListener('input', actualizarGaleria);
     document.getElementById('sortGal').addEventListener('change', actualizarGaleria);
 
     function renderGaleria(items) {
       var grid = document.getElementById('galeriaGrid');
       if (!items || !items.length) {
-        grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1">No se encontraron arreglos en galería con esos criterios. ❄️</div>';
+        grid.innerHTML = '<div class="catalog-loading" style="grid-column:1/-1">No se encontraron piezas en galería con esos criterios. ❄️</div>';
         return;
       }
+      
       grid.innerHTML = items.map(function (a) {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
@@ -1017,8 +928,8 @@
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
 
       return [
-        '<div class="gallery-card reveal-on-scroll" data-id="' + a.id + '">',
-          ribbonDescuento, 
+        '<div class="gallery-card" data-id="' + a.id + '">',
+          ribbonDescuento,
           '<div class="card-img-wrap">',
             '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
             ' onload="this.classList.add(\'loaded\')"',
@@ -1036,16 +947,19 @@
       ].join("");
       }).join('');
 
-      setTimeout(activarRevelados, 50);
+      activarRevelados();
       
       grid.onclick = function (e) {
         var card = e.target.closest('.gallery-card');
         if (!card) return;
-        var a = items.find(function (x) { return String(x.id) === card.dataset.id; });
+        var a = items.find(x => String(x.id) === card.dataset.id);
         if (a) openGaleriaModal(a);
       };
     }
 
+    // =========================================
+    // MODALES
+    // =========================================
     function openModal(a) {
       document.getElementById('modalImg').src = a.imagen_url || '';
       document.getElementById('modalImg').alt = a.nombre;
@@ -1076,12 +990,13 @@
     document.getElementById('galeriaModalOverlay').addEventListener('click', function (e) { if (e.target === this) closeGaleriaModal(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeModal(); closeGaleriaModal(); } });
 
+    // MENÚ MÓVIL
     var navToggle = document.getElementById('navToggle');
     var navLinks = document.getElementById('navLinks');
     navToggle.addEventListener('click', function () { navToggle.classList.toggle('open'); navLinks.classList.toggle('open'); });
     navLinks.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', function () { navToggle.classList.remove('open'); navLinks.classList.remove('open'); }); });
 
-    // ---- Revelado suave al hacer scroll ----
+    // REVELADO AL HACER SCROLL
     var revealObserver = null;
 
     function activarRevelados() {
