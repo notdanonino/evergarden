@@ -10,17 +10,17 @@
        NUEVA PALETA DE COLORES NAVIDAD PREMIUM
        ========================================= */
     :root{
-      --bg: #fcfbf9; /* Blanco muy sutil para que contraste el crema */
+      --bg: #fcfbf9; 
       --bg2: #CFCABF;
       --surface: #ffffff;
       --surface2: #CFCABF;
       --line: #CFCABF;
-      --text: #1D2E19; /* Verde pino oscuro para textos principales (muy elegante) */
-      --muted: #76584C; /* Café para textos secundarios */
-      --accent: #A60B08; /* Rojo brillante */
-      --accent2: #1D2E19; /* Verde pino */
-      --accent3: #5E0001; /* Rojo vino oscuro */
-      --gold: #CFCABF; /* Beige */
+      --text: #1D2E19; 
+      --muted: #76584C; 
+      --accent: #A60B08; 
+      --accent2: #1D2E19; 
+      --accent3: #5E0001; 
+      --gold: #CFCABF; 
       --shadow: 0 10px 30px rgba(29, 46, 25, 0.08);
       --shadow2: 0 18px 44px rgba(29, 46, 25, 0.12);
       --radius: 20px;
@@ -33,8 +33,8 @@
     a{text-decoration:none;color:inherit}
     button,input{font:inherit}
 
-    /* BARRA SUPERIOR CON NUEVA PALETA */
-    .announcement-bar{position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(90deg,#5E0001,#A60B08,#5E0001,#A60B08,#5E0001);background-size:300% auto;animation:shimmerBar 6s linear infinite;color:#fff;text-align:center;padding:8px 48px;font-size:.8rem;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:12px}
+    /* BARRA SUPERIOR */
+    .announcement-bar{position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(90deg,#5E0001,#A60B08,#5E0001,#A60B08,#5E0001);background-size:300% auto;animation:shimmerBar 6s linear infinite;color:#fff;text-align:center;padding:8px 48px;font-size:.8rem;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:12px;}
     @keyframes shimmerBar{0%{background-position:0 center}100%{background-position:300% center}}
     .announcement-bar.hidden{display:none}
     .bar-text{flex:1}
@@ -52,7 +52,7 @@
     }
     @media (prefers-reduced-motion:reduce){.petal{display:none}}
 
-    nav{position:fixed;top:36px;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 48px;background:rgba(252,251,249,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);transition:top .25s ease}
+    nav{position:fixed;top:36px;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 48px;background:rgba(252,251,249,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);transition:top .25s ease; height: 80px;}
     nav.bar-gone{top:0}
     .nav-logo{display:flex;align-items:center;color:var(--accent);font-size:1.3rem;font-weight:700;letter-spacing:.05em}
     .nav-logo img{height:44px;width:auto}
@@ -90,15 +90,19 @@
     .section-desc{text-align:center;color:var(--muted);max-width:520px;margin:0 auto 34px;line-height:1.7;font-size:1rem}
     
     /* =========================================
-       NUEVO: CONTROLES STICKY Y BUSCADOR CUSTOM
+       CONTROLES STICKY Y BUSCADOR CUSTOM
        ========================================= */
     .controls-wrapper { 
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; 
       margin: 0 auto 40px; max-width: 1300px; border-bottom: 1px solid var(--line); 
       padding: 15px 0;
-      position: sticky; top: 116px; z-index: 150; 
+      position: sticky; top: 116px; 
+      z-index: 150; 
       background: rgba(252,251,249, 0.95); backdrop-filter: blur(8px);
     }
+    
+    body.bar-hidden .controls-wrapper { top: 80px; }
+    
     .controls-search { flex: 1; min-width: 250px; max-width: 400px; position: relative;}
     .controls-search input { width: 100%; padding: 12px 16px 12px 40px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.6); outline: none; color: var(--text); transition: background 0.3s;}
     .controls-search input:focus { background: #fff; border-color: var(--accent); }
@@ -110,30 +114,45 @@
       background-size: contain; background-repeat: no-repeat;
       opacity: 0.5; pointer-events: none;
     }
-    .controls-sort select { padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.6); outline: none; color: var(--text); cursor: pointer; transition: background 0.3s;}
-    .controls-sort select:focus { background: #fff; border-color: var(--accent); }
+    
+    /* ESTILOS DEL NUEVO DROPDOWN PERSONALIZADO */
+    .controls-sort { flex: 1; min-width: 250px; max-width: 400px; }
+    .custom-dropdown { position: relative; width: 100%; user-select: none; }
+    .custom-dropdown-selected {
+      background: rgba(255,255,255,0.6); border: 1px solid var(--line); border-radius: 999px;
+      padding: 12px 40px 12px 20px; color: var(--text); font-size: 0.95rem; cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231D2E19' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 16px center;
+    }
+    .custom-dropdown.open .custom-dropdown-selected { border-color: var(--accent); background: #fff; }
+    .custom-dropdown-options {
+      position: absolute; top: 110%; left: 0; right: 0; background: #fff;
+      border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow);
+      overflow: hidden; z-index: 100; opacity: 0; visibility: hidden;
+      transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+    .custom-dropdown.open .custom-dropdown-options { opacity: 1; visibility: visible; transform: translateY(0); }
+    .custom-dropdown-options div { padding: 12px 20px; font-size: 0.95rem; color: var(--text); cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .custom-dropdown-options div:hover { background: rgba(207, 202, 191, 0.25); color: var(--accent); }
+    .custom-dropdown-options div.selected { font-weight: bold; background: rgba(166, 11, 8, 0.05); color: var(--accent); }
 
     .disclaimer-box{display:flex;align-items:flex-start;gap:14px;background:linear-gradient(90deg,#5E0001,#A60B08,#5E0001);background-size:300% auto;animation:shimmerBar 6s linear infinite;border:none;border-radius:14px;padding:18px 24px;max-width:760px;margin:0 auto 56px;text-align:left;box-shadow:var(--shadow)}
     .disclaimer-icon-img {width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px;}
     .disclaimer-box p{font-size:.88rem;color:#ffffff;line-height:1.75}
     .disclaimer-box strong{color:#CFCABF;} 
 
-    /* ASIMETRÍA EN LA CUADRÍCULA: grid-auto-flow denso para que las tarjetas grandes encajen bien */
-    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px; grid-auto-flow: dense;}
+    /* ALIGN-ITEMS: START evita que las tarjetas se estiren y dejen espacios blancos abajo */
+    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px; grid-auto-flow: dense; align-items: start;}
     
-    /* Clase para destacar tarjetas y hacerlas más grandes */
     .flower-card.featured { grid-column: span 2; grid-row: span 2; }
-    
-    @media (max-width: 650px) {
-      /* En móviles quitamos el span para no romper el layout */
-      .flower-card.featured { grid-column: span 1; grid-row: span 1; }
-    }
+    @media (max-width: 650px) { .flower-card.featured { grid-column: span 1; grid-row: span 1; } }
 
     .skeleton-card,.flower-card,.gallery-card,.contact-card,.about-card,.custom-order-card,.galeria-intro-box,.modal{background:var(--surface);box-shadow:var(--shadow)}
     @keyframes shimmer{0%{background-position:-600px 0}100%{background-position:600px 0}}
     .skeleton-card{border-radius:20px;overflow:hidden}
     .skeleton-img,.skeleton-line,.skeleton-btn{background:linear-gradient(90deg,#f1f4f6 25%,#ffffff 50%,#f1f4f6 75%);background-size:600px 100%;animation:shimmer 1.4s ease-in-out infinite}
-    .skeleton-img{width:100%;padding-top:130%}
+    .skeleton-img{width:100%;padding-top:100%;} 
     .skeleton-body{padding:16px 18px 18px}
     .skeleton-line{height:14px;border-radius:6px;margin-bottom:10px}
     .skeleton-line.short{width:55%}
@@ -146,19 +165,15 @@
     .flower-card:hover,.gallery-card:hover{transform:translateY(-6px)}
     .flower-card:hover::after,.gallery-card:hover::after{opacity:1}
     
-    /* El aspect ratio se mantiene para tarjetas normales, pero lo hacemos relativo al ancho en las destacadas */
-    .card-img-wrap{position:relative;width:100%;padding-top:130%;overflow:hidden;background:#ffffff}
-    .flower-card.featured .card-img-wrap { padding-top: 65%; /* Más achatada para compensar el doble ancho */ }
-    @media (max-width: 650px) { .flower-card.featured .card-img-wrap { padding-top: 130%; } }
-
-    .card-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .4s,opacity .35s;opacity:0}
+    .card-img-wrap { position:relative; width:100%; overflow:hidden; background:#ffffff; border-bottom: 1px solid var(--line);}
+    .card-img-wrap img { position:relative; width:100%; height:auto; display:block; object-fit:cover; transition:transform .4s,opacity .35s; opacity:0; }
     .card-img-wrap img.loaded{opacity:1}
     .flower-card:hover .card-img-wrap img,.gallery-card:hover .card-img-wrap img{transform:scale(1.05)}
+    
     .card-price-badge{position:absolute;bottom:10px;left:10px;background:rgba(166,11,8,.92);color:#fff;padding:4px 13px;border-radius:999px;font-size:.8rem;font-weight:700;z-index:2;pointer-events:none;letter-spacing:.02em;backdrop-filter:blur(4px)}
     .card-body{padding:14px 18px 16px}
     .card-name-display{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:10px}
     
-    /* Hacemos el texto más grande en las tarjetas destacadas */
     .flower-card.featured .card-name-display { font-size: 1.25rem; margin-bottom: 14px; }
     
     .btn-wa,.btn-pedido{width:100%;border:none;padding:10px 18px;font-size:.88rem;font-family:inherit;color:#fff;justify-content:center}
@@ -167,29 +182,15 @@
     .btn-pedido{background:var(--accent2)}
     .btn-pedido:hover{background:var(--accent3);transform:translateY(-1px)}
 
-    /* Listón Vendido (Derecha) */
     .sold-ribbon{position:absolute;top:14px;right:-8px;background:var(--muted);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 16px 4px 12px;border-radius:4px 0 0 4px;z-index:3;box-shadow:-2px 2px 6px rgba(0,0,0,.15)}
     .sold-ribbon::after{content:'';position:absolute;right:0;bottom:-6px;border-width:6px 8px 0 0;border-style:solid;border-color:var(--accent3) transparent transparent transparent}
 
-    /* Listón Descuento (Izquierda) */
     .flower-card .discount-ribbon,
     .gallery-card .discount-ribbon {
-      position: absolute !important;
-      top: 20px;
-      left: -34px;
-      width: 150px;
-      text-align: center;
-      background: linear-gradient(135deg, #A60B08, #5E0001);
-      color: #fff;
-      padding: 6px 0;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transform: rotate(-45deg);
-      z-index: 50 !important; 
-      box-shadow: 0 4px 12px rgba(166, 11, 8, 0.35);
-      pointer-events: none;
+      position: absolute !important; top: 20px; left: -34px; width: 150px; text-align: center;
+      background: linear-gradient(135deg, #A60B08, #5E0001); color: #fff; padding: 6px 0;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      transform: rotate(-45deg); z-index: 50 !important; box-shadow: 0 4px 12px rgba(166, 11, 8, 0.35); pointer-events: none;
     }
 
     .gallery-card, .flower-card { overflow: hidden; }
@@ -215,8 +216,6 @@
     .gg-cta:hover{background:var(--accent3)}
 
     #quienes{padding:90px 48px 80px;background:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(207,202,191,.3) 100%)}
-    
-    /* ASIMETRÍA EN QUIÉNES SOMOS */
     .quienes-inner{max-width:1200px;margin:0 auto}
     @media (min-width: 900px) {
       .quienes-header-asym { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-bottom: 60px; }
@@ -275,8 +274,8 @@
     @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.6); } 70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
 
     @media (max-width:700px){
-      .announcement-bar{font-size:.72rem;padding:8px 36px 8px 12px}
-      nav{padding:12px 16px;top:34px;flex-wrap:wrap}
+      .announcement-bar{font-size:.72rem;padding:8px 36px 8px 12px; height: 32px;}
+      nav{padding:12px 16px;top:32px;flex-wrap:wrap; height: 60px;}
       .nav-toggle{display:flex}
       .nav-links{display:none;width:100%;flex-direction:column;gap:0;padding:8px 0 4px;border-top:1px solid var(--line);margin-top:8px}
       .nav-links.open{display:flex}
@@ -284,7 +283,9 @@
       .nav-links a:last-child{border-bottom:none}
       #catalogo,#galeria,#quienes{padding:70px 16px 60px}
       #personalizado{padding:0 16px 60px}
-      .controls-wrapper { top: 96px; } /* Ajuste de altura sticky en móvil */
+      .controls-wrapper { top: 92px; } 
+      body.bar-hidden .controls-wrapper { top: 60px; }
+      
       .catalog-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
       .modal{flex-direction:column}
       .modal-img{width:100%;max-height:55vh;object-fit:contain;border-radius:24px 24px 0 0;background:#ffffff}
@@ -499,7 +500,6 @@
   </nav>
 
   <section class="hero" id="inicio">
-    <!-- IMÁGENES NAVIDEÑAS DEL HERO -->
     <div class="hero-leaf-cluster" aria-hidden="true">
       <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="leaf leaf-one" style="width: 100px; height: 100px;" />
       <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="leaf leaf-two" style="width: 80px; height: 80px;" />
@@ -531,12 +531,18 @@
       <div class="controls-search">
         <input type="text" id="searchCat" placeholder="Buscar arreglo por nombre..." />
       </div>
+      
+      <!-- NUEVO DROPDOWN PERSONALIZADO -->
       <div class="controls-sort">
-        <select id="sortCat">
-          <option value="default">Más recientes</option>
-          <option value="price-asc">Precio: Menor a Mayor</option>
-          <option value="price-desc">Precio: Mayor a Menor</option>
-        </select>
+        <div class="custom-dropdown" id="dropdown-sortCat">
+          <div class="custom-dropdown-selected">Más recientes</div>
+          <div class="custom-dropdown-options">
+            <div data-value="default" class="selected">Más recientes</div>
+            <div data-value="price-asc">Precio: Menor a Mayor</div>
+            <div data-value="price-desc">Precio: Mayor a Menor</div>
+          </div>
+          <input type="hidden" id="sortCat" value="default" />
+        </div>
       </div>
     </div>
 
@@ -599,12 +605,18 @@
       <div class="controls-search">
         <input type="text" id="searchGal" placeholder="Buscar en galería..." />
       </div>
+      
+      <!-- NUEVO DROPDOWN PERSONALIZADO -->
       <div class="controls-sort">
-        <select id="sortGal">
-          <option value="default">Más recientes</option>
-          <option value="price-asc">Precio: Menor a Mayor</option>
-          <option value="price-desc">Precio: Mayor a Menor</option>
-        </select>
+        <div class="custom-dropdown" id="dropdown-sortGal">
+          <div class="custom-dropdown-selected">Más recientes</div>
+          <div class="custom-dropdown-options">
+            <div data-value="default" class="selected">Más recientes</div>
+            <div data-value="price-asc">Precio: Menor a Mayor</div>
+            <div data-value="price-desc">Precio: Mayor a Menor</div>
+          </div>
+          <input type="hidden" id="sortGal" value="default" />
+        </div>
       </div>
     </div>
 
@@ -761,7 +773,7 @@
   </div>
 
   <script>
-    // Forzar scroll arriba al cargar
+    // Forzar scroll arriba al cargar o recargar
     if (history.scrollRestoration) {
       history.scrollRestoration = 'manual';
     }
@@ -777,10 +789,54 @@
     document.getElementById('barCloseBtn').addEventListener('click', function () {
       document.getElementById('announcementBar').classList.add('hidden');
       document.getElementById('mainNav').classList.add('bar-gone');
+      
+      // Actualizar la posición de los controles sticky al cerrar el anuncio
+      document.body.classList.add('bar-hidden');
     });
+
+    // LÓGICA DROPDOWNS PERSONALIZADOS
+    function setupCustomDropdowns() {
+      document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+        const selected = dropdown.querySelector('.custom-dropdown-selected');
+        const options = dropdown.querySelectorAll('.custom-dropdown-options div');
+        const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+        
+        selected.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Cerrar otros dropdowns abiertos
+          document.querySelectorAll('.custom-dropdown').forEach(d => {
+            if(d !== dropdown) d.classList.remove('open');
+          });
+          dropdown.classList.toggle('open');
+        });
+        
+        options.forEach(opt => {
+          opt.addEventListener('click', () => {
+            selected.textContent = opt.textContent;
+            hiddenInput.value = opt.getAttribute('data-value');
+            
+            options.forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            
+            dropdown.classList.remove('open');
+            // Disparar evento de cambio para que escuche el filtrado
+            hiddenInput.dispatchEvent(new Event('change'));
+          });
+        });
+      });
+
+      // Cerrar al hacer click afuera
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+          dropdown.classList.remove('open');
+        });
+      });
+    }
 
     // POPUP NAVIDEÑO DE INICIO
     window.addEventListener('DOMContentLoaded', () => {
+      setupCustomDropdowns();
+
       setTimeout(() => {
         document.getElementById('xmasPopupOverlay').classList.add('open');
       }, 1200);
@@ -889,14 +945,14 @@
         var tieneDescuento = a.en_descuento === true || a.en_descuento === 'true' || a.en_descuento === 1;
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
         
-        // Asimetría: destacar la primera y una de cada seis tarjetas (solo visual, si cabe)
+        // Asimetría: destacar la primera y una de cada seis tarjetas (solo visual, si cabe en grid)
         var isFeatured = (index % 6 === 0) ? ' featured' : '';
 
         return [
           '<div class="flower-card' + isFeatured + '" data-id="' + a.id + '">',
             ribbonDescuento,
             '<div class="card-img-wrap">',
-              '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
+              '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async"',
               ' onload="this.classList.add(\'loaded\')"',
               ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
               precio ? '<div class="card-price-badge">' + precio + "</div>" : "",
@@ -973,7 +1029,7 @@
         '<div class="gallery-card' + isFeatured + '" data-id="' + a.id + '">',
           ribbonDescuento,
           '<div class="card-img-wrap">',
-            '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
+            '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async"',
             ' onload="this.classList.add(\'loaded\')"',
             ' onerror="this.src=\'https://via.placeholder.com/280x308?text=Sin+imagen\';this.classList.add(\'loaded\')" />',
             precio ? '<div class="card-price-badge">' + precio + "</div>" : "",
