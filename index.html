@@ -33,8 +33,17 @@
     a{text-decoration:none;color:inherit}
     button,input{font:inherit}
 
+    /* PANTALLA DE CARGA (PRELOADER) */
+    #preloader { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease; }
+    #preloader.hide { opacity: 0; visibility: hidden; }
+    .loader-content { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .loader-logo { width: 90px; animation: pulseLogo 2s infinite cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(0 4px 12px rgba(29, 46, 25, 0.1)); }
+    .loader-spinner { width: 44px; height: 44px; border: 3px solid rgba(166, 11, 8, 0.15); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes pulseLogo { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.08); opacity: 1; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     /* BARRA SUPERIOR */
-    .announcement-bar{position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(90deg,#5E0001,#A60B08,#5E0001,#A60B08,#5E0001);background-size:300% auto;animation:shimmerBar 6s linear infinite;color:#fff;text-align:center;padding:8px 48px;font-size:.8rem;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:12px;}
+    .announcement-bar{position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(90deg,#5E0001,#A60B08,#5E0001,#A60B08,#5E0001);background-size:300% auto;animation:shimmerBar 6s linear infinite;color:#fff;text-align:center;padding:8px 48px;font-size:.8rem;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:12px; height: 36px;}
     @keyframes shimmerBar{0%{background-position:0 center}100%{background-position:300% center}}
     .announcement-bar.hidden{display:none}
     .bar-text{flex:1}
@@ -95,9 +104,7 @@
     .controls-wrapper { 
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; 
       margin: 0 auto 40px; max-width: 1300px; border-bottom: 1px solid var(--line); 
-      padding: 15px 0;
-      position: sticky; top: 116px; 
-      z-index: 150; 
+      padding: 15px 0; position: sticky; top: 116px; z-index: 150; 
       background: rgba(252,251,249, 0.95); backdrop-filter: blur(8px);
     }
     
@@ -107,15 +114,13 @@
     .controls-search input { width: 100%; padding: 12px 16px 12px 40px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.6); outline: none; color: var(--text); transition: background 0.3s;}
     .controls-search input:focus { background: #fff; border-color: var(--accent); }
     .controls-search::before { 
-      content: ''; 
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%); 
+      content: ''; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); 
       width: 18px; height: 18px;
       background-image: url('https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/buscar.png');
-      background-size: contain; background-repeat: no-repeat;
-      opacity: 0.5; pointer-events: none;
+      background-size: contain; background-repeat: no-repeat; opacity: 0.5; pointer-events: none;
     }
     
-    /* ESTILOS DEL NUEVO DROPDOWN PERSONALIZADO */
+    /* ESTILOS DEL DROPDOWN PERSONALIZADO */
     .controls-sort { flex: 1; min-width: 250px; max-width: 400px; }
     .custom-dropdown { position: relative; width: 100%; user-select: none; }
     .custom-dropdown-selected {
@@ -142,17 +147,14 @@
     .disclaimer-box p{font-size:.88rem;color:#ffffff;line-height:1.75}
     .disclaimer-box strong{color:#CFCABF;} 
 
-    /* ALIGN-ITEMS: START evita que las tarjetas se estiren y dejen espacios blancos abajo */
-    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px; grid-auto-flow: dense; align-items: start;}
+    /* LA CUADRÍCULA PERFECTA: Sin asimetrías para evitar alturas desiguales */
+    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px;}
     
-    .flower-card.featured { grid-column: span 2; grid-row: span 2; }
-    @media (max-width: 650px) { .flower-card.featured { grid-column: span 1; grid-row: span 1; } }
-
     .skeleton-card,.flower-card,.gallery-card,.contact-card,.about-card,.custom-order-card,.galeria-intro-box,.modal{background:var(--surface);box-shadow:var(--shadow)}
     @keyframes shimmer{0%{background-position:-600px 0}100%{background-position:600px 0}}
     .skeleton-card{border-radius:20px;overflow:hidden}
     .skeleton-img,.skeleton-line,.skeleton-btn{background:linear-gradient(90deg,#f1f4f6 25%,#ffffff 50%,#f1f4f6 75%);background-size:600px 100%;animation:shimmer 1.4s ease-in-out infinite}
-    .skeleton-img{width:100%;padding-top:100%;} 
+    .skeleton-img{width:100%;padding-top:115%;} 
     .skeleton-body{padding:16px 18px 18px}
     .skeleton-line{height:14px;border-radius:6px;margin-bottom:10px}
     .skeleton-line.short{width:55%}
@@ -165,35 +167,37 @@
     .flower-card:hover,.gallery-card:hover{transform:translateY(-6px)}
     .flower-card:hover::after,.gallery-card:hover::after{opacity:1}
     
-    .card-img-wrap { position:relative; width:100%; overflow:hidden; background:#ffffff; border-bottom: 1px solid var(--line);}
-    .card-img-wrap img { position:relative; width:100%; height:auto; display:block; object-fit:cover; transition:transform .4s,opacity .35s; opacity:0; }
+    /* El contenedor tiene una altura definida y el object-fit:cover asegura que no hay blancos */
+    .card-img-wrap { position:relative; width:100%; padding-top:115%; overflow:hidden; background:#ffffff; border-bottom: 1px solid var(--line);}
+    .card-img-wrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s,opacity .35s; opacity:0; }
     .card-img-wrap img.loaded{opacity:1}
     .flower-card:hover .card-img-wrap img,.gallery-card:hover .card-img-wrap img{transform:scale(1.05)}
     
     .card-price-badge{position:absolute;bottom:10px;left:10px;background:rgba(166,11,8,.92);color:#fff;padding:4px 13px;border-radius:999px;font-size:.8rem;font-weight:700;z-index:2;pointer-events:none;letter-spacing:.02em;backdrop-filter:blur(4px)}
-    .card-body{padding:14px 18px 16px}
+    .card-body{padding:14px 18px 16px; display:flex; flex-direction:column; height: 100%;}
     .card-name-display{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:10px}
     
-    .flower-card.featured .card-name-display { font-size: 1.25rem; margin-bottom: 14px; }
-    
-    .btn-wa,.btn-pedido{width:100%;border:none;padding:10px 18px;font-size:.88rem;font-family:inherit;color:#fff;justify-content:center}
+    .btn-wa,.btn-pedido{width:100%;border:none;padding:10px 18px;font-size:.88rem;font-family:inherit;color:#fff;justify-content:center; margin-top:auto;}
     .btn-wa{background:#25D366}
     .btn-wa:hover{background:#1ebe5d;transform:translateY(-1px)}
     .btn-pedido{background:var(--accent2)}
     .btn-pedido:hover{background:var(--accent3);transform:translateY(-1px)}
 
+    /* Listón Vendido (Derecha) */
     .sold-ribbon{position:absolute;top:14px;right:-8px;background:var(--muted);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 16px 4px 12px;border-radius:4px 0 0 4px;z-index:3;box-shadow:-2px 2px 6px rgba(0,0,0,.15)}
     .sold-ribbon::after{content:'';position:absolute;right:0;bottom:-6px;border-width:6px 8px 0 0;border-style:solid;border-color:var(--accent3) transparent transparent transparent}
 
+    /* Listón Descuento (Izquierda) */
     .flower-card .discount-ribbon,
     .gallery-card .discount-ribbon {
       position: absolute !important; top: 20px; left: -34px; width: 150px; text-align: center;
       background: linear-gradient(135deg, #A60B08, #5E0001); color: #fff; padding: 6px 0;
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-      transform: rotate(-45deg); z-index: 50 !important; box-shadow: 0 4px 12px rgba(166, 11, 8, 0.35); pointer-events: none;
+      transform: rotate(-45deg); z-index: 50 !important; box-shadow: 0 4px 12px rgba(166, 11, 8, 0.35);
+      pointer-events: none;
     }
 
-    .gallery-card, .flower-card { overflow: hidden; }
+    .gallery-card, .flower-card { overflow: hidden; display: flex; flex-direction: column; }
 
     #personalizado{padding:0 48px 80px;max-width:1300px;margin:0 auto}
     .custom-order-inner{max-width:800px;margin:0 auto;text-align:center}
@@ -216,6 +220,8 @@
     .gg-cta:hover{background:var(--accent3)}
 
     #quienes{padding:90px 48px 80px;background:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(207,202,191,.3) 100%)}
+    
+    /* ASIMETRÍA EN QUIÉNES SOMOS */
     .quienes-inner{max-width:1200px;margin:0 auto}
     @media (min-width: 900px) {
       .quienes-header-asym { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-bottom: 60px; }
@@ -471,6 +477,14 @@
   </style>
 </head>
 <body>
+  <!-- PANTALLA DE CARGA (PRELOADER) -->
+  <div id="preloader">
+    <div class="loader-content">
+      <img src="images/Logo_EverGarden_SinFondo.png" alt="EverGarden" class="loader-logo" />
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
   <div class="announcement-bar" id="announcementBar">
     <span class="bar-text">❄️ <strong>Descuentos especiales</strong> en floreros de temporada <span class="bar-sep">✦</span> ¡Aprovecha antes de que se agoten! 🎄</span>
     <button class="bar-close" id="barCloseBtn" aria-label="Cerrar">✕</button>
@@ -500,6 +514,7 @@
   </nav>
 
   <section class="hero" id="inicio">
+    <!-- IMÁGENES NAVIDEÑAS DEL HERO -->
     <div class="hero-leaf-cluster" aria-hidden="true">
       <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="leaf leaf-one" style="width: 100px; height: 100px;" />
       <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="leaf leaf-two" style="width: 80px; height: 80px;" />
@@ -532,7 +547,7 @@
         <input type="text" id="searchCat" placeholder="Buscar arreglo por nombre..." />
       </div>
       
-      <!-- NUEVO DROPDOWN PERSONALIZADO -->
+      <!-- DROPDOWN PERSONALIZADO -->
       <div class="controls-sort">
         <div class="custom-dropdown" id="dropdown-sortCat">
           <div class="custom-dropdown-selected">Más recientes</div>
@@ -606,7 +621,7 @@
         <input type="text" id="searchGal" placeholder="Buscar en galería..." />
       </div>
       
-      <!-- NUEVO DROPDOWN PERSONALIZADO -->
+      <!-- DROPDOWN PERSONALIZADO -->
       <div class="controls-sort">
         <div class="custom-dropdown" id="dropdown-sortGal">
           <div class="custom-dropdown-selected">Más recientes</div>
@@ -833,13 +848,19 @@
       });
     }
 
-    // POPUP NAVIDEÑO DE INICIO
-    window.addEventListener('DOMContentLoaded', () => {
+    // OCULTAR PRELOADER + POPUP NAVIDEÑO DE INICIO
+    window.addEventListener('load', () => {
       setupCustomDropdowns();
 
+      // Ocultar preloader un instante después de cargar todo
       setTimeout(() => {
-        document.getElementById('xmasPopupOverlay').classList.add('open');
-      }, 1200);
+        document.getElementById('preloader').classList.add('hide');
+        
+        // Mostrar el popup un poco después de que desaparece el preloader
+        setTimeout(() => {
+          document.getElementById('xmasPopupOverlay').classList.add('open');
+        }, 1200);
+      }, 400);
 
       const closeXmasPopup = () => {
         document.getElementById('xmasPopupOverlay').classList.remove('open');
@@ -939,17 +960,14 @@
         return;
       }
       
-      grid.innerHTML = items.map(function (a, index) {
+      grid.innerHTML = items.map(function (a) {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || "";
         var tieneDescuento = a.en_descuento === true || a.en_descuento === 'true' || a.en_descuento === 1;
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
-        
-        // Asimetría: destacar la primera y una de cada seis tarjetas (solo visual, si cabe en grid)
-        var isFeatured = (index % 6 === 0) ? ' featured' : '';
 
         return [
-          '<div class="flower-card' + isFeatured + '" data-id="' + a.id + '">',
+          '<div class="flower-card" data-id="' + a.id + '">',
             ribbonDescuento,
             '<div class="card-img-wrap">',
               '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async"',
@@ -1017,16 +1035,14 @@
         return;
       }
       
-      grid.innerHTML = items.map(function (a, index) {
+      grid.innerHTML = items.map(function (a) {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
         var tieneDescuento = a.en_descuento === true || a.en_descuento === 'true' || a.en_descuento === 1;
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
-        
-        var isFeatured = (index % 6 === 0) ? ' featured' : '';
 
       return [
-        '<div class="gallery-card' + isFeatured + '" data-id="' + a.id + '">',
+        '<div class="gallery-card" data-id="' + a.id + '">',
           ribbonDescuento,
           '<div class="card-img-wrap">',
             '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async"',
