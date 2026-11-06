@@ -118,7 +118,17 @@
     .disclaimer-box p{font-size:.88rem;color:#ffffff;line-height:1.75}
     .disclaimer-box strong{color:#CFCABF;} 
 
-    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px}
+    /* ASIMETRÍA EN LA CUADRÍCULA: grid-auto-flow denso para que las tarjetas grandes encajen bien */
+    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px; grid-auto-flow: dense;}
+    
+    /* Clase para destacar tarjetas y hacerlas más grandes */
+    .flower-card.featured { grid-column: span 2; grid-row: span 2; }
+    
+    @media (max-width: 650px) {
+      /* En móviles quitamos el span para no romper el layout */
+      .flower-card.featured { grid-column: span 1; grid-row: span 1; }
+    }
+
     .skeleton-card,.flower-card,.gallery-card,.contact-card,.about-card,.custom-order-card,.galeria-intro-box,.modal{background:var(--surface);box-shadow:var(--shadow)}
     @keyframes shimmer{0%{background-position:-600px 0}100%{background-position:600px 0}}
     .skeleton-card{border-radius:20px;overflow:hidden}
@@ -135,13 +145,22 @@
     .flower-card::after,.gallery-card::after{content:'';position:absolute;inset:0;border-radius:20px;box-shadow:0 10px 30px rgba(29,46,25,.13);opacity:0;transition:opacity .25s;pointer-events:none}
     .flower-card:hover,.gallery-card:hover{transform:translateY(-6px)}
     .flower-card:hover::after,.gallery-card:hover::after{opacity:1}
+    
+    /* El aspect ratio se mantiene para tarjetas normales, pero lo hacemos relativo al ancho en las destacadas */
     .card-img-wrap{position:relative;width:100%;padding-top:130%;overflow:hidden;background:#ffffff}
+    .flower-card.featured .card-img-wrap { padding-top: 65%; /* Más achatada para compensar el doble ancho */ }
+    @media (max-width: 650px) { .flower-card.featured .card-img-wrap { padding-top: 130%; } }
+
     .card-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .4s,opacity .35s;opacity:0}
     .card-img-wrap img.loaded{opacity:1}
     .flower-card:hover .card-img-wrap img,.gallery-card:hover .card-img-wrap img{transform:scale(1.05)}
     .card-price-badge{position:absolute;bottom:10px;left:10px;background:rgba(166,11,8,.92);color:#fff;padding:4px 13px;border-radius:999px;font-size:.8rem;font-weight:700;z-index:2;pointer-events:none;letter-spacing:.02em;backdrop-filter:blur(4px)}
     .card-body{padding:14px 18px 16px}
     .card-name-display{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:10px}
+    
+    /* Hacemos el texto más grande en las tarjetas destacadas */
+    .flower-card.featured .card-name-display { font-size: 1.25rem; margin-bottom: 14px; }
+    
     .btn-wa,.btn-pedido{width:100%;border:none;padding:10px 18px;font-size:.88rem;font-family:inherit;color:#fff;justify-content:center}
     .btn-wa{background:#25D366}
     .btn-wa:hover{background:#1ebe5d;transform:translateY(-1px)}
@@ -196,7 +215,15 @@
     .gg-cta:hover{background:var(--accent3)}
 
     #quienes{padding:90px 48px 80px;background:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(207,202,191,.3) 100%)}
+    
+    /* ASIMETRÍA EN QUIÉNES SOMOS */
     .quienes-inner{max-width:1200px;margin:0 auto}
+    @media (min-width: 900px) {
+      .quienes-header-asym { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-bottom: 60px; }
+      .quienes-text-col { flex: 1; text-align: left; }
+      .quienes-text-col .section-label, .quienes-text-col .section-title, .quienes-text-col .about-intro { text-align: left; margin-left: 0; }
+      .about-collage { flex: 1; margin-bottom: 0 !important; }
+    }
     .about-intro{text-align:center;font-size:1rem;color:var(--text);line-height:1.85;max-width:680px;margin:0 auto 44px}
     .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
     .about-card{border-radius:18px;padding:28px 22px;text-align:center; background:#fff; box-shadow:var(--shadow)}
@@ -590,24 +617,28 @@
 
   <section id="quienes">
     <div class="quienes-inner">
-      <p class="section-label">✦ Nuestra historia ✦</p>
-      <h2 class="section-title">Quiénes Somos</h2>
-          <div class="about-collage reveal-on-scroll" aria-hidden="true">
-      <div class="about-collage-paper"></div>
+      <div class="quienes-header-asym reveal-on-scroll">
+        <div class="quienes-text-col">
+          <p class="section-label">✦ Nuestra historia ✦</p>
+          <h2 class="section-title">Quiénes Somos</h2>
+          <p class="about-intro"><strong>EverGarden</strong> nació de una idea simple pero poderosa: hacer de cada espacio algo más bonito, más cálido y más propio. Creemos que la decoración no debería ser complicada, y que un arreglo —aunque artificial— tiene el poder de transformar un rincón, una mesa o un hogar entero.<br /><br />Cada pieza de nuestro catálogo es <strong>única e irrepetible</strong> y está sujeta a disponibilidad. Pero si tienes algo en mente, con gusto creamos un arreglo <strong>personalizado a tu gusto</strong>. Todos los pedidos se realizan directamente por WhatsApp.</p>
+        </div>
+        
+        <div class="about-collage" aria-hidden="true">
+          <div class="about-collage-paper"></div>
+          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="about-collage-leaf leaf-a" style="width: 65px; height: 65px;" />
+          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png" alt="" class="about-collage-leaf leaf-b" style="width: 60px; height: 60px;" />
+          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="about-collage-leaf leaf-c" style="width: 55px; height: 55px;" />
+          <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/corona-de-navidad.png" alt="" class="about-collage-leaf leaf-d" style="width: 50px; height: 50px;" />
 
-      <!-- IMÁGENES NAVIDEÑAS DEL COLLAGE QUIÉNES SOMOS -->
-      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/arbol-de-navidad.png" alt="" class="about-collage-leaf leaf-a" style="width: 65px; height: 65px;" />
-      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/monigote-de-nieve.png" alt="" class="about-collage-leaf leaf-b" style="width: 60px; height: 60px;" />
-      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/regalos.png" alt="" class="about-collage-leaf leaf-c" style="width: 55px; height: 55px;" />
-      <img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/corona-de-navidad.png" alt="" class="about-collage-leaf leaf-d" style="width: 50px; height: 50px;" />
+          <p class="about-collage-text">
+            Cada arreglo está pensado para aportar
+            <strong>magia, belleza y un detalle especial</strong>
+            a los espacios que más quieres en esta temporada.
+          </p>
+        </div>
+      </div>
 
-      <p class="about-collage-text">
-        Cada arreglo está pensado para aportar
-        <strong>magia, belleza y un detalle especial</strong>
-        a los espacios que más quieres en esta temporada.
-      </p>
-    </div>
-      <p class="about-intro"><strong>EverGarden</strong> nació de una idea simple pero poderosa: hacer de cada espacio algo más bonito, más cálido y más propio. Creemos que la decoración no debería ser complicada, y que un arreglo —aunque artificial— tiene el poder de transformar un rincón, una mesa o un hogar entero.<br /><br />Cada pieza de nuestro catálogo es <strong>única e irrepetible</strong> y está sujeta a disponibilidad. Pero si tienes algo en mente, con gusto creamos un arreglo <strong>personalizado a tu gusto</strong>. Todos los pedidos se realizan directamente por WhatsApp.</p>
       <div class="about-grid">
         <div class="about-card"><div class="icon">🌷</div><h3>Piezas únicas</h3><p>Cada arreglo es irrepetible — no producimos en serie. Cada pieza tiene su propia personalidad y estilo.</p></div>
         <div class="about-card"><div class="icon">🎄</div><h3>Estilo Navideño</h3><p>La paleta festiva abraza tonos carmín, verdes pino, blancos nevados y dorados para una sensación mágica y acogedora.</p></div>
@@ -730,6 +761,12 @@
   </div>
 
   <script>
+    // Forzar scroll arriba al cargar
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     const WA_NUMBER = '5218134000720';
     const MSJ_ICON = '<img src="https://wigmeqkkjqmzqityuhlt.supabase.co/storage/v1/object/public/fotos_evergarden/mensaje.png" alt="Mensaje" style="width:16px; height:16px; margin-right:6px; filter: brightness(0) invert(1);" />';
 
@@ -846,14 +883,17 @@
         return;
       }
       
-      grid.innerHTML = items.map(function (a) {
+      grid.innerHTML = items.map(function (a, index) {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || "";
         var tieneDescuento = a.en_descuento === true || a.en_descuento === 'true' || a.en_descuento === 1;
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
+        
+        // Asimetría: destacar la primera y una de cada seis tarjetas (solo visual, si cabe)
+        var isFeatured = (index % 6 === 0) ? ' featured' : '';
 
         return [
-          '<div class="flower-card" data-id="' + a.id + '">',
+          '<div class="flower-card' + isFeatured + '" data-id="' + a.id + '">',
             ribbonDescuento,
             '<div class="card-img-wrap">',
               '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
@@ -921,14 +961,16 @@
         return;
       }
       
-      grid.innerHTML = items.map(function (a) {
+      grid.innerHTML = items.map(function (a, index) {
         var precio = fmtPrecio(a.precio);
         var imgSrc = a.imagen_url || '';
         var tieneDescuento = a.en_descuento === true || a.en_descuento === 'true' || a.en_descuento === 1;
         var ribbonDescuento = tieneDescuento ? '<div class="discount-ribbon">Descuento</div>' : '';
+        
+        var isFeatured = (index % 6 === 0) ? ' featured' : '';
 
       return [
-        '<div class="gallery-card" data-id="' + a.id + '">',
+        '<div class="gallery-card' + isFeatured + '" data-id="' + a.id + '">',
           ribbonDescuento,
           '<div class="card-img-wrap">',
             '<img src="' + imgSrc + '" alt="' + a.nombre + '" loading="lazy" decoding="async" width="280" height="308"',
